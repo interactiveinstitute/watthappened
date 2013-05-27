@@ -23,6 +23,7 @@ def show_last_absence(feed, start_ts, end_ts):
   send_to_warhol(feed, json, 'your_last_absence')
 
 def on_measurement(feed, datastream, value, timestamp, doc):
+  print doc
   if datastream == 'OfficeOccupied':
     if presence[feed] != value:
       presence[feed] = value

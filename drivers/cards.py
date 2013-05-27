@@ -35,7 +35,7 @@ class Bubble(object):
     if card: print 'Attached cards are not yet supported'
 
   def push(self):
-    db.save_doc({
+    doc = {
       'source': self.feed,
       'timestamp': self.timestamp,
       'tags': self.tags,
@@ -43,7 +43,9 @@ class Bubble(object):
       'value': self.value,
       'value_type': self.value_type,
       'priority': self.priority,
-    })
+    }
+    db.save_doc(doc)
+    print 'pushed bubble', doc
 
   @classmethod
   def push_about_power(cls, feed, note, timestamp, value, priority=0, tags=[], card=None):
