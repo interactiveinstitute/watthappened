@@ -8,4 +8,5 @@ Intended for use in combination with [energy-cards](https://github.com/interacti
 Currently only interprets individuals’ absence and prints to stdout. Usage:
 
 1. Set the database details in `config_priv.py`. See `config_priv.example.py`.
+2. Prepare your environment: `export PYTHONPATH=$PWD/python_modules:$PYTHONPATH`
 2. Run: `python drivers/last_absence.py`
