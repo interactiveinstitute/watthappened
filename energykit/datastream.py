@@ -3,20 +3,19 @@
 class DataStream(object):
   instances = {}
 
-  def __init__(self, feed_name, name):
-    if (feed_name, name) in self.instances:
+  def __init__(self, **attrs):
+    if attrs in self.instances:
       raise Warning('Use the %s.get factory method to get an instance.'
           % self.__class_.__name__)
 
-    self._feed_name = feed_name
-    self._name = name
+    self._attrs = attrs
 
   @classmethod
-  def get(cls, feed_name, name):
-    if (feed_name, name) in cls.instances:
-      instance = cls.instances[(feed_name, name)]
+  def get(cls, **attrs):
+    if attrs in cls.instances:
+      instance = cls.instances[attrs]
     else:
-      instance = cls.instances[(feed_name, name)] = cls(feed_name, name)
+      instance = cls.instances[attrs] = cls(**attrs)
     return instance
 
   def value_at(self, time):

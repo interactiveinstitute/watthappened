@@ -4,8 +4,8 @@ feed = 'room241'
 present = False
 absence_start_ts = 0
 
-occupied_stream = DataStream.get(feed, 'OfficeOccupied')
-energy_stream = DataStream.get(feed, 'ElectricEnergy')
+occupied_stream = DataStream.get(feed_name=feed, name='OfficeOccupied')
+energy_stream = DataStream.get(feed_name=feed, name='ElectricEnergy')
 watch = Watch()
 
 def show_last_absence(start_ts, end_ts):
