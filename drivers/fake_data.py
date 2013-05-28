@@ -26,3 +26,4 @@ def set_fake_meter(timestamp, power, is_present, energy, presence_energy, absenc
   })
 
 if __name__ == '__main__':
+  set_fake_meter(now(), 50.0, True, 1.0, 0.8, 0.2)
