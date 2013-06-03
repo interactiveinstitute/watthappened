@@ -1,32 +1,35 @@
 import energykit
-from energykit import util
 
-from _couch import *
+from datainterval import *
 
 class DataStream(energykit.DataStream):
-  def _key(self, timestamp):
+  def __init__(self, source, key):
+    super(DataStream, self).__init__(source, key)
+
+    self._feed_name = key[0]
+    self._name = key[1]
+
+  def _key(self, time):
     return db.show('energy_data/unix_to_couchm_ts', '',
-                   feed=self._attrs.feed_name, timestamp=milliseconds)
+                   feed=self._feed_name, timestamp=time.as_ms())
+
+  def _to_point(self, value):
+    time = energykit.Time.from_json(value[self.source._at_idx])
+    value = value[self.source._datastream_idx[self._name]]
+    return energykit.DataPoint(time, value)
 
   def value_at(self, time):
-    ts = util.timestamp(time)
     result = db.view('energy_data/by_source_and_time',
-                     startkey=[self._attrs.feed_name],
-                     endkey=self._key(ts))
+                     startkey=[self._feed_name],
+                     endkey=self._key(time))
     if len(result):
-      value = result.first()['value']
-      return value[at_idx], value[datastream_idx[self._attrs.name]]
+      return self._to_point(result.first()['value'])
     else:
-      return None, 0
+      return energykit.DataPoint()
 
-  def last_measured_value(self):
-    result = _couch.db.view('energy_data/by_source_and_time',
-                            startkey=[self._attrs.feed_name],
-                            endkey=[self._attrs.feed_name, {}])
-    value = result.first()['value']
-    return value[_couch.at_idx], value[_couch._datastream_idx[self._attrs.name]]
+  def interval(self, start_time=None, end_time=None):
+    return DataInterval(self, start_time, end_time)
 
-  def value_difference(self, start_time, end_time):
-    start_time, start_value = self.value_at(start_time)
-    end_time, end_value = self.value_at(end_time)
-    return end_value - start_value
+  def listen(self):
+    if not self.source._listening:
+      self.source._listen()

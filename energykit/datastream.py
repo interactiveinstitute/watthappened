@@ -1,28 +1,19 @@
-# times can be either datetime or a timestamp int
+from pubsub import *
 
-class DataStream(object):
-  instances = {}
+class DataStream(PubSub):
+  def __init__(self, source, key):
+    super(DataStream, self).__init__()
 
-  def __init__(self, **attrs):
-    if attrs in self.instances:
-      raise Warning('Use the %s.get factory method to get an instance.'
-          % self.__class_.__name__)
+    self.source = source
+    self.key = key
 
-    self._attrs = attrs
-
-  @classmethod
-  def get(cls, **attrs):
-    if attrs in cls.instances:
-      instance = cls.instances[attrs]
-    else:
-      instance = cls.instances[attrs] = cls(**attrs)
-    return instance
+    source.subscribe(self.publish)
 
   def value_at(self, time):
     raise NotImplementedError
 
-  def last_measured_value(self):
+  def interval(self, start_time=None, end_time=None):
     raise NotImplementedError
 
-  def value_difference(self, start_time, end_time):
+  def listen(self):
     raise NotImplementedError

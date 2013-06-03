@@ -5,8 +5,8 @@ Analyze and interpret historical and current energy data, store time-based feedb
 
 Intended for use in combination with [energy-cards](https://github.com/interactiveinstitute/energy-cards) and [energy-screen](https://github.com/interactiveinstitute/energy-screen).
 
-Currently only interprets individuals’ absence and prints to stdout. Usage:
+To test energykit:
 
 1. Set the database details in `config_priv.py`. See `config_priv.example.py`.
 2. Prepare your environment: `export PYTHONPATH=$PWD/python_modules:$PYTHONPATH`
-2. Run: `python drivers/last_absence.py`
+2. Run: `python -m energykit.couchm`
