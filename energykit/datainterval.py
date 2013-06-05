@@ -17,4 +17,5 @@ class DataInterval(object):
     raise NotImplementedError
 
   def peak_period(self, length, start_time, end_time):
+    # e.g. the best hour during 2013
     raise NotImplementedError
