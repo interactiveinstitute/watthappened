@@ -7,7 +7,7 @@ class PubSub(object):
     if source in self._subscriptions.keys():
       for listener in self._subscriptions[source]:
         listener(data, source)
-        heard += listener
+        heard.append(listener)
     if None in self._subscriptions.keys():
       for listener in self._subscriptions[None]:
         if not listener in heard:

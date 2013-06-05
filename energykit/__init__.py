@@ -3,6 +3,6 @@ from datapoint import *
 from datasource import *
 from datastream import *
 from pubsub import *
-from time import *
+from ektime import *
 
 import couchm

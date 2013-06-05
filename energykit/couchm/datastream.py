@@ -19,7 +19,7 @@ class DataStream(energykit.DataStream):
     return energykit.DataPoint(time, value)
 
   def value_at(self, time):
-    result = db.view('energy_data/by_source_and_time',
+    result = self.source.db.view('energy_data/by_source_and_time',
                      startkey=[self._feed_name],
                      endkey=self._key(time))
     if len(result):

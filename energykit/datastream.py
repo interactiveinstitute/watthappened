@@ -7,7 +7,7 @@ class DataStream(PubSub):
     self.source = source
     self.key = key
 
-    source.subscribe(self.publish)
+    source.subscribe(self.publish, self)
 
   def value_at(self, time):
     raise NotImplementedError
@@ -17,3 +17,9 @@ class DataStream(PubSub):
 
   def listen(self):
     raise NotImplementedError
+
+  def write(self, value):
+    raise NotImplementedError
+
+  def __str__(self):
+    return '<DataStream %s>' % str(self.key)

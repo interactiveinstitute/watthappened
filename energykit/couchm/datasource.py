@@ -39,7 +39,7 @@ class DataSource(energykit.DataSource, energykit.PubSub):
   def _listen(self, include_last_changes=0):
     # TODO(sander) use an event loop so that this doesn't block
     update_seq = self.db.info()['update_seq'] - include_last_changes
-    stream = couchdbkit.changes.ChangesStream(db,
+    stream = couchdbkit.changes.ChangesStream(self.db,
                                               feed='continuous',
                                               filter='energy_data/measurements',
                                               heartbeat=True,
@@ -50,12 +50,12 @@ class DataSource(energykit.DataSource, energykit.PubSub):
       for change in stream:
         doc = change['doc']
         time = energykit.Time.from_ms(doc['timestamp'])
-        source = self.get_stream_by_key((doc['source'], key))
         for key in self._datastreams:
           if key in doc:
+            source = self.get_stream_by_key((doc['source'], key))
             value = doc[key]
             datapoint = energykit.DataPoint(time, value)
-            self._publish(datapoint, source)
+            self.publish(datapoint, source)
     except KeyboardInterrupt:
       self._listening = False
       pass
