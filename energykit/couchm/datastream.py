@@ -9,6 +9,8 @@ class DataStream(energykit.DataStream):
     self._feed_name = key[0]
     self._name = key[1]
 
+    source.subscribe(self.publish, self)
+
   def _key(self, time):
     return db.show('energy_data/unix_to_couchm_ts', '',
                    feed=self._feed_name, timestamp=time.as_ms())

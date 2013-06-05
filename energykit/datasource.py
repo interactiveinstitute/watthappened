@@ -9,3 +9,6 @@ class DataSource(object):
     if not key in self._instances:
       self._instances[key] = self._create_stream_instance_by_key(key)
     return self._instances[key]
+
+  def _create_stream_instance_by_key(self, key):
+    raise NotImplementedError

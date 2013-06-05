@@ -1,4 +1,5 @@
 import pandas as pd
+import time
 
 class Time(pd.Timestamp):
   @classmethod
@@ -16,6 +17,10 @@ class Time(pd.Timestamp):
   @classmethod
   def infinity(cls):
     return float('inf')
+
+  @classmethod
+  def now(cls):
+    return cls.from_ms(int(time.time() * 1000))
 
   def as_ms(self):
     return self.value / 1000

@@ -7,8 +7,6 @@ class DataStream(PubSub):
     self.source = source
     self.key = key
 
-    source.subscribe(self.publish, self)
-
   def value_at(self, time):
     raise NotImplementedError
 

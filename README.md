@@ -16,5 +16,5 @@ Testing energykit
 -----------------
 
 1. Set the database details in `config_priv.py`. See `config_priv.example.py`.
-2. Prepare your environment: `export PYTHONPATH=$PWD/python_modules:$PYTHONPATH`
-3. Run: `python -m energykit.couchm`
+2. Prepare your environment: `export PYTHONPATH=$PWD/python_modules:$PYTHONPATH`.
+3. Run: `python -m energykit.couchm` or: `python -m energykit.fake`.
