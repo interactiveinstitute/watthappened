@@ -8,4 +8,4 @@ class DataPoint(object):
     return time is None
 
   def __str__(self):
-    return '(%s, %s)' % (self.time.as_ms(), str(self.value))
+    return '(%s, %s)' % (self.time, self.value)
