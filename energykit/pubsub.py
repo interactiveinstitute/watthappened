@@ -2,7 +2,7 @@ class PubSub(object):
   def __init__(self):
     self._subscriptions = {}
 
-  def publish(self, data, source):
+  def publish(self, data=None, source=None):
     heard = []
     if source in self._subscriptions.keys():
       for listener in self._subscriptions[source]:

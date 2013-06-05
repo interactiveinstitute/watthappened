@@ -37,7 +37,6 @@ class DataSource(energykit.DataSource, energykit.PubSub):
     return DataStream(self, key)
 
   def _listen(self, include_last_changes=0):
-    # TODO(sander) use an event loop so that this doesn't block
     update_seq = self.db.info()['update_seq'] - include_last_changes
     stream = couchdbkit.changes.ChangesStream(self.db,
                                               feed='continuous',
@@ -46,16 +45,18 @@ class DataSource(energykit.DataSource, energykit.PubSub):
                                               since=update_seq,
                                               include_docs=True)
     self._listening = True
-    try:
-      for change in stream:
-        doc = change['doc']
-        time = energykit.Time.from_ms(doc['timestamp'])
-        for key in self._datastreams:
-          if key in doc:
-            source = self.get_stream_by_key((doc['source'], key))
-            value = doc[key]
-            datapoint = energykit.DataPoint(time, value)
-            self.publish(datapoint, source)
-    except KeyboardInterrupt:
-      self._listening = False
-      pass
+
+    def callback(change):
+      doc = change['doc']
+      time = energykit.Time.from_ms(doc['timestamp'])
+      for key in self._datastreams:
+        if key in doc:
+          source = self.get_stream_by_key((doc['source'], key))
+          value = doc[key]
+          datapoint = energykit.DataPoint(time, value)
+          self.publish(datapoint, source)
+
+    def run(callback):
+      for change in stream: callback(change)
+
+    energykit.run_async(run, callback)

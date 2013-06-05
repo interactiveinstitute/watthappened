@@ -30,6 +30,7 @@ class DataStream(energykit.DataStream):
   def interval(self, start_time=None, end_time=None):
     return DataInterval(self, start_time, end_time)
 
-  def listen(self):
+  def observe(self, listener):
+    self.subscribe(listener, self)
     if not self.source._listening:
       self.source._listen()
