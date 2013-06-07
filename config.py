@@ -6,3 +6,13 @@ from config_priv import *
 DEBUG_USE_LAST_CHANGES = 500
 
 FAKE_STREAMS = range(8000, 8005)
+
+def DRIVERS(add):
+  import drivers
+  from energykit import couchm, fake
+
+  source = fake.DataSource() \
+      .get_stream_by_key(FAKE_STREAMS[0])
+  sink = couchm.DataSource(**COUCHDB['testbuilding']) \
+      .get_stream_by_key(('testbuilding', 'ElectricPower'))
+  add(drivers.Pipe(source, sink))
