@@ -10,6 +10,7 @@ class DataSource(energykit.DataSource, energykit.PubSub):
     energykit.DataSource.__init__(self)
     energykit.PubSub.__init__(self)
 
+    self._user = user
     auth = restkit.BasicAuth(user, password)
     server = couchdbkit.Server(uri=server, filters=[auth])
     self.db = server.get_db(database)
@@ -60,3 +61,18 @@ class DataSource(energykit.DataSource, energykit.PubSub):
       for change in stream: callback(change)
 
     energykit.run_async(run, callback)
+
+  def write(self, data, time=None):
+    if time is None:
+      time = energykit.Time.now()
+    docs = {}
+    for feed_name, datastream_name in data:
+      if not feed_name in docs:
+        docs[feed_name] = {
+          'type': 'measurement',
+          'user': self._user,
+          'source': feed_name,
+          'timestamp': time.as_ms()
+        }
+      docs[feed_name][datastream_name] = data[(feed_name, datastream_name)]
+    self.db.save_docs(docs.values())

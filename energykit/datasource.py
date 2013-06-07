@@ -12,3 +12,7 @@ class DataSource(object):
 
   def _create_stream_instance_by_key(self, key):
     raise NotImplementedError
+
+  def write(self, data, time=None):
+    'data is a dict combining DataStream: value maps; value is JSONifiable'
+    raise NotImplementedError

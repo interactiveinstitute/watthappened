@@ -2,7 +2,7 @@ from __init__ import *
 
 import config
 
-source = DataSource(**config.COUCHDB)
+source = DataSource(**config.COUCHDB['sp'])
 
 key = ('room241', 'ElectricPower')
 key = ('room256', 'ElectricPower')

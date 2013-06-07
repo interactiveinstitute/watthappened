@@ -23,7 +23,7 @@ class Time(pd.Timestamp):
     return cls.from_ms(int(time.time() * 1000))
 
   def as_ms(self):
-    return self.value / 1000
+    return self.value / 1000000
 
   def as_s(self):
-    return self.value / 1000
+    return self.as_ms() / 1000

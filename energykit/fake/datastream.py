@@ -39,6 +39,8 @@ class DataStream(energykit.DataStream):
     ])
     app.listen(port)
 
+    print 'fake stream initialised at: http://localhost:%d/' % port
+
   def set_value(self, value):
     self._value = value
     self._time = energykit.Time.now()
