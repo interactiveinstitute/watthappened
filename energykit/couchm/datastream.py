@@ -36,3 +36,12 @@ class DataStream(energykit.DataStream):
     self.subscribe(listener, self)
     if not self.source._listening:
       self.source._listen()
+
+  def domain(self):
+    result = self.source.db.view('energy_data/domains', key=self._feed_name)
+    if len(result):
+      start = energykit.Time.from_ms(result.first()['value']['min'])
+      end = energykit.Time.from_ms(result.first()['value']['max'])
+      return (start, end)
+    else:
+      return None

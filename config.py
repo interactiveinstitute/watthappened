@@ -15,6 +15,6 @@ def DRIVERS():
 
   fake_stream = fake.DataSource().get_stream_by_key(FAKE_STREAMS[0])
   couchm_test = source.get_stream_by_key(('testbuilding', 'ElectricPower'))
-  yield drivers.Pipe(fake_stream, couchm_test)
 
+  yield drivers.Pipe(fake_stream, couchm_test)
   yield drivers.WeeklyExtrema(couchm_test)

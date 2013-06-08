@@ -19,5 +19,8 @@ class DataStream(PubSub):
   def write(self, value):
     raise NotImplementedError
 
+  def domain(self):
+    raise NotImplementedError
+
   def __str__(self):
     return '<DataStream %s>' % str(self.key)

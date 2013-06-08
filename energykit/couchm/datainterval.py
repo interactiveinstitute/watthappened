@@ -16,3 +16,6 @@ class DataInterval(energykit.DataInterval):
     start_point = self.stream.value_at(self.start_time)
     end_point = self.stream.value_at(self.end_time)
     return end_point.value - start_point.value
+
+  def extrema(self):
+    return None
