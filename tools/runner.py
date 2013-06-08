@@ -5,13 +5,8 @@ import drivers
 import energykit
 
 class Runner(object):
-  def __init__(self):
-    self.drivers = []
-
-    config.DRIVERS(self.drivers.append)
-
   def run(self):
-    for driver in self.drivers:
+    for driver in config.DRIVERS():
       if 'run' in dir(driver):
         driver.run()
     energykit.start()
