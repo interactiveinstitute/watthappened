@@ -11,14 +11,19 @@ var ddoc = module.exports = {
 // startkey=["myFeed", ts1]&enkey=["myFeed", ts2]
 ddoc.views.bubbles_by_feed_and_time = {
   map: function(doc) {
-    if (doc.type == 'driverdata' && doc.output)
-      doc.output.forEach(function(value) {
+    if (doc.type == 'driverdata' && doc.output) {
+      function each(obj, handler) {
+        if (obj.length === undefined) for (var key in obj) handler(obj[key]);
+        else obj.forEach(handler);
+      }
+      each(doc.output, function(value) {
         if (value.source && value.sp_bubble)
           ['timestamp','timestamp_start','timestamp_end'].forEach(function(k) {
             if (value.sp_bubble[k])
               emit([value.source, value.sp_bubble[k]], value.sp_bubble)
           })
       })
+    }
   }
 }
 

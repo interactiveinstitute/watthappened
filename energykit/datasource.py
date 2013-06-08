@@ -16,3 +16,9 @@ class DataSource(object):
   def write(self, data, time=None):
     'data is a dict combining DataStream: value maps; value is JSONifiable'
     raise NotImplementedError
+
+  def load_driver_data(self, driver, id):
+    raise NotImplementedError
+
+  def save_driver_data(self, data):
+    raise NotImplementedError

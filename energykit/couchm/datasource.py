@@ -76,3 +76,32 @@ class DataSource(energykit.DataSource, energykit.PubSub):
         }
       docs[feed_name][datastream_name] = data[(feed_name, datastream_name)]
     self.db.save_docs(docs.values())
+
+  def _driver_data_id(self, driver, id):
+    if id is None: id = ''
+    return 'driverdata:%s:%s' % (driver.__class__.__name__, id)
+
+  def load_driver_data(self, driver, id):
+    doc_id = self._driver_data_id(driver, id)
+    try:
+      doc = self.db.get(doc_id)
+      data = energykit.DriverData(self, driver, id)
+      data._rev = doc['_rev']
+      if 'cache' in doc: data.cache = doc['cache']
+      if 'output' in doc: data.output = doc['output']
+    except couchdbkit.exceptions.ResourceNotFound:
+      data = None
+    return data
+
+  def save_driver_data(self, data):
+    doc = {
+      '_id': self._driver_data_id(data.driver, data.id),
+      'type': 'driverdata',
+      'driver_type': data.driver.__class__.__name__,
+      'user': self._user,
+      'cache': data.cache,
+      'output': data.output,
+    }
+    if '_rev' in dir(data): doc['_rev'] = data._rev
+    self.db.save_doc(doc)
+    return True

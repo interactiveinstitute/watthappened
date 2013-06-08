@@ -1,8 +1,7 @@
-import config
 from energykit import Driver
 
 class Pipe(Driver):
-  def __init__(self, source, sink):
+  def init(self, source, sink):
     self.source = source
     self.sink = sink
 
