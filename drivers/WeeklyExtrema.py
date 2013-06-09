@@ -35,8 +35,8 @@ class WeeklyExtrema(Driver):
 
   def _set(self, week_key, name, datapoint):
     week_id = self._week_id(week_key, name)
-    if 'dFdt' in dir(datapoint.value): value = str(datapoint.value.dFdt)
-    else: value = str(datapoint.value)
+    v = datapoint.value
+    value = str('dFdt' in dir(v) and v.dFdt or v)
     self.data.output[week_id] = {
       'feed': self.power.event_feed_name(),
       'sp_bubble': {
