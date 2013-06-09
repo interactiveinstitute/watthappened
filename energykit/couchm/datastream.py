@@ -51,3 +51,6 @@ class DataStream(energykit.DataStream):
       return (start, end)
     else:
       return None
+
+  def event_feed_name(self):
+    return self.key[0]

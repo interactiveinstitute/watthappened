@@ -17,10 +17,10 @@ ddoc.views.bubbles_by_feed_and_time = {
         else obj.forEach(handler);
       }
       each(doc.output, function(value) {
-        if (value.source && value.sp_bubble)
+        if (value.feed && value.sp_bubble)
           ['timestamp','timestamp_start','timestamp_end'].forEach(function(k) {
             if (value.sp_bubble[k])
-              emit([value.source, value.sp_bubble[k]], value.sp_bubble)
+              emit([value.feed, value.sp_bubble[k]], value.sp_bubble);
           })
       })
     }
@@ -34,5 +34,5 @@ ddoc.filters.bubbles = function(doc, req) {
     doc.output &&
     doc.output.some(function(value) {
       return value.sp_bubble &&
-        (!req.query.source || req.query.source == value.source) })
+        (!req.query.feed || req.query.feed == value.feed) })
 }

@@ -24,7 +24,8 @@ class DataInterval(energykit.DataInterval):
     if self.end_time: end_key.append(self.end_time.as_ms())
     result = self.stream.source.db.view('energy_data/extrema',
                                         startkey=start_key,
-                                        endkey=end_key)
+                                        endkey=end_key,
+                                        group_level=2)
     if len(result):
       def to_point(v):
         t = energykit.Time.from_ms(v[0])

@@ -104,4 +104,5 @@ class DataSource(energykit.DataSource, energykit.PubSub):
     }
     if '_rev' in dir(data): doc['_rev'] = data._rev
     self.db.save_doc(doc)
+    data._rev = doc['_rev']
     return True
