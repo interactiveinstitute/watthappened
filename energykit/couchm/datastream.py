@@ -3,8 +3,8 @@ import energykit
 from datainterval import *
 
 class DataStream(energykit.DataStream):
-  def __init__(self, source, key):
-    super(DataStream, self).__init__(source, key)
+  def __init__(self, source, key, type=energykit.ValueType.UNKNOWN):
+    super(DataStream, self).__init__(source, key, type)
 
     self._feed_name = key[0]
     self._name = key[1]
@@ -19,6 +19,12 @@ class DataStream(energykit.DataStream):
     time = energykit.Time.from_json(value[self.source._at_idx])
     value = value[self.source._datastream_idx[self._name]]
     return energykit.DataPoint(time, value)
+
+  def _to_value(self, value, t=None):
+    if self.type is energykit.ValueType.POWER:
+      return energykit.EnergyValue.from_power(value, t)
+    else:
+      return energykit.Value(value, t)
 
   def value_at(self, time):
     result = self.source.db.view('energy_data/by_source_and_time',

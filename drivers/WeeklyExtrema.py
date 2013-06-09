@@ -23,8 +23,8 @@ class WeeklyExtrema(Driver):
 
     first, last = self.power.domain()
     for week in _weeks_around(first, last):
-      extrema = self.power.interval(week[0], week[1]).extrema()
-    # TODO add stats view to couchm, gives min, max for each datastream
+      extrema = self.power.interval(Time(week[0]), Time(week[1])).extrema()
+      print extrema
     # TODO loop through stream's week intervals, query extrema and store bubbles
     # TODO store extrema of current week (thus far) in bubble
     # TODO store pointer to current week in cache

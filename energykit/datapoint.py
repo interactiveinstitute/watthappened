@@ -7,5 +7,5 @@ class DataPoint(object):
   def is_empty(self):
     return time is None
 
-  def __str__(self):
+  def __repr__(self):
     return '(%s, %s)' % (self.time, self.value)

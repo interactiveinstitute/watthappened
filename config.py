@@ -9,12 +9,13 @@ FAKE_STREAMS = range(8000, 8005)
 
 def DRIVERS():
   import drivers
-  from energykit import couchm, fake
+  from energykit import couchm, fake, ValueType
 
   source = couchm.DataSource(**COUCHDB['testbuilding'])
 
   fake_stream = fake.DataSource().get_stream_by_key(FAKE_STREAMS[0])
   couchm_test = source.get_stream_by_key(('testbuilding', 'ElectricPower'))
+  couchm_test.type = ValueType.POWER
 
   yield drivers.Pipe(fake_stream, couchm_test)
   yield drivers.WeeklyExtrema(couchm_test)

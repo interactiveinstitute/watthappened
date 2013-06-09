@@ -89,6 +89,16 @@ class EnergyValue(PiecewiseLinearValue):
   def current_as_Wh(self):
     return self.current()
 
+  def __repr__(self):
+    return '%.1f Ws over %.1f s' % (self.dF, self.dt)
+
+class ValueType(object):
+  UNKNOWN = 0
+  POWER = 1
+  ENERGY = 2
+  PRESENCE = 3
+  PRESENCE_TIME = 4
+
 class PresenceTimeValue(PiecewiseLinearValue):
   unit = 'presence s'
   derivative = 'presence'

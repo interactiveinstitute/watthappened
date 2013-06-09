@@ -1,11 +1,13 @@
 from pubsub import *
+from value import *
 
 class DataStream(PubSub):
-  def __init__(self, source, key):
+  def __init__(self, source, key, type=ValueType.UNKNOWN):
     super(DataStream, self).__init__()
 
     self.source = source
     self.key = key
+    self.type = type
 
   def value_at(self, time):
     raise NotImplementedError

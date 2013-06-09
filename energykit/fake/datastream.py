@@ -27,8 +27,8 @@ class _Ignorer(tornado.web.RequestHandler):
     pass
 
 class DataStream(energykit.DataStream):
-  def __init__(self, source, port):
-    super(DataStream, self).__init__(source, port)
+  def __init__(self, source, port, type=energykit.ValueType.POWER):
+    super(DataStream, self).__init__(source, port, type)
 
     self._value = '50'
     self._time = energykit.Time.now()
