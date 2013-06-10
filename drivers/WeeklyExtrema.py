@@ -1,46 +1,40 @@
-from energykit import Driver, Time, ValueType
+from energykit import Driver, PowerExtremaIndicator, Time
 
 class WeeklyExtrema(Driver):
   priority = 0
-  _week_length = 7 * 24 * 60 * 60 * 1000
 
-  def init(self, power_stream):
+  def __init__(self, power_stream):
+    super(WeeklyExtrema, self).__init__()
+
     self.power = power_stream
-    self.power.type = ValueType.POWER
 
   def run(self):
     self.data = self.load_or_create_data(self.power.source)
-    self.current_min = float('inf')
-    self.current_max = float('-inf')
-
-    first, last = self.power.domain()
     self.data.output = {}
-    for week in Time.weeks_around(first, last):
-      min, max = self.power.interval(Time(week[0]), Time(week[1])).extrema()
-      key = Time(week[0]).as_week()
-      for name in ('min', 'max'): self._set(key, name, locals()[name])
-
-      # Store latest week with data: this week's data might be updated.
-      self.data.cache['week_key'] = key
-      self.data.cache['week_start'] = Time(week[0]).as_ms()
-      self.current_min = min.value.as_W()
-      self.current_max = max.value.as_W()
-    # TODO(sander) handle case that no weeks have been added?
-
+    for week in Time.weeks_around(self.power.domain()[0], Time.now()):
+      self._set_indicator(week)
     self.data.save()
-    self.power.observe(self._on_update)
+    self.log('(re)calculated past extrema')
+    self._update_handlers(self.indicator.subscribe)
 
-  def _week_id(self, key, name):
-    return '%s/%s' % (key, name)
+  def _set_indicator(self, week):
+    self.indicator = PowerExtremaIndicator(self.power, *week)
 
-  def _set(self, week_key, name, datapoint):
-    week_id = self._week_id(week_key, name)
-    v = datapoint.value
-    value = str('dFdt' in dir(v) and v.dFdt or v)
+    key = week[0].as_week()
+    min, max = self.indicator.datapoints()
+    for name in ('min', 'max'): self._set(key, name, locals()[name])
+
+    # Store latest week with data: this week's data might be updated.
+    self.data.cache['week_key'] = key
+    self.data.cache['week_start'] = week[0].as_ms()
+
+  def _set(self, week_key, name, dp):
+    week_id = week_key + '/' + name
+    value = str('dFdt' in dir(dp.value) and dp.value.dFdt or dp.value)
     self.data.output[week_id] = {
       'feed': self.power.event_feed_name(),
       'sp_bubble': {
-        'timestamp': datapoint.time.as_ms(),
+        'timestamp': dp.time.as_ms(),
         'tags': ['%simum' % name],
         'value': value,
         'value_type': 'W',
@@ -48,16 +42,17 @@ class WeeklyExtrema(Driver):
       }
     }
 
-  def _on_update(self, datapoint, source):
-    value = float(datapoint.value)
-    # TODO(sander) switch to next week if needed
-    if value < self.current_min:
-      self.current_min = value
-      self._set(self.data.cache['week_key'], 'min', datapoint)
-      self.log('updated minimum for', str(self.power.key))
-      self.data.save()
-    if value > self.current_max:
-      self.current_max = value
-      self._set(self.data.cache['week_key'], 'max', datapoint)
-      self.log('updated maximum for', str(self.power.key))
-      self.data.save()
+  def _update_handlers(self, which):
+    which(self._on_update, 'min')
+    which(self._on_update, 'max')
+    which(self._week_ended, 'ended')
+
+  def _on_update(self, datapoint, type):
+    self._set(self.data.cache['week_key'], type, datapoint)
+    self.data.save()
+    self.log('updated', type)
+
+  def _week_ended(self, data, topic):
+    self._update_handlers(self.indicator.unsubscribe)
+    self._set_indicator(next(Time.weeks_around(Time.now())))
+    self._update_handlers(self.indicator.subscribe)

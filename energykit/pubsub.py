@@ -20,3 +20,14 @@ class PubSub(object):
       subscriptions = []
       self._subscriptions[source] = subscriptions
     subscriptions.append(listener)
+
+  def unsubscribe(self, listener, source=None):
+    if source in self._subscriptions.keys():
+      if listener in self._subscriptions[source]:
+        self._subscriptions[source].remove(listener)
+
+  def subscription_count(self):
+    count = 0
+    for source in self._subscriptions.keys():
+      count += len(self._subscriptions[source])
+    return count

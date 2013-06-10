@@ -76,3 +76,4 @@ Indicators
 .. automodule:: energykit.indicator
     :members:
     :undoc-members:
+    :show-inheritance:

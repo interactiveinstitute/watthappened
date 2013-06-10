@@ -58,8 +58,8 @@
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
- | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
@@ -139,6 +139,16 @@
   <dt><a href="energykit.html#energykit.datapoint.DataPoint">DataPoint (class in energykit.datapoint)</a>
   </dt>
 
+      
+  <dt><a href="energykit.html#energykit.indicator.Indicator.datapoints">datapoints() (energykit.indicator.Indicator method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="energykit.html#energykit.indicator.PowerExtremaIndicator.datapoints">(energykit.indicator.PowerExtremaIndicator method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="energykit.couchm.html#energykit.couchm.datasource.DataSource">DataSource (class in energykit.couchm.datasource)</a>
   </dt>
@@ -368,20 +378,6 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="energykit.html#energykit.indicator.Indicator.get_current_datapoint">get_current_datapoint() (energykit.indicator.Indicator method)</a>
-  </dt>
-
-      
-  <dt><a href="energykit.html#energykit.indicator.Indicator.get_current_time">get_current_time() (energykit.indicator.Indicator method)</a>
-  </dt>
-
-      
-  <dt><a href="energykit.html#energykit.indicator.Indicator.get_current_value">get_current_value() (energykit.indicator.Indicator method)</a>
-  </dt>
-
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
-      
   <dt><a href="energykit.fake.html#energykit.fake.datastream.DataStream.get_datapoint">get_datapoint() (energykit.fake.datastream.DataStream method)</a>
   </dt>
 
@@ -389,6 +385,8 @@
   <dt><a href="energykit.html#energykit.datasource.DataSource.get_stream_by_key">get_stream_by_key() (energykit.datasource.DataSource method)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="energykit.couchm.html#energykit.couchm.datasource.DataSource.get_stream_keys">get_stream_keys() (energykit.couchm.datasource.DataSource method)</a>
   </dt>
@@ -498,6 +496,16 @@
   </dl></td>
 </tr></table>
 
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="energykit.html#energykit.ektime.Time.MONDAY">MONDAY (energykit.ektime.Time attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
@@ -505,22 +513,6 @@
   <dt><a href="energykit.html#energykit.ektime.Time.now">now() (energykit.ektime.Time class method)</a>
   </dt>
 
-  </dl></td>
-</tr></table>
-
-<h2 id="O">O</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="energykit.couchm.html#energykit.couchm.datastream.DataStream.observe">observe() (energykit.couchm.datastream.DataStream method)</a>
-  </dt>
-
-      <dd><dl>
-        
-  <dt><a href="energykit.html#energykit.datastream.DataStream.observe">(energykit.datastream.DataStream method)</a>
-  </dt>
-
-      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -537,6 +529,10 @@
 
       
   <dt><a href="energykit.html#energykit.value.ValueType.POWER">POWER (energykit.value.ValueType attribute)</a>
+  </dt>
+
+      
+  <dt><a href="energykit.html#energykit.indicator.PowerExtremaIndicator">PowerExtremaIndicator (class in energykit.indicator)</a>
   </dt>
 
       
@@ -569,6 +565,10 @@
 
       
   <dt><a href="energykit.html#energykit.value.PresenceTimeValue">PresenceTimeValue (class in energykit.value)</a>
+  </dt>
+
+      
+  <dt><a href="energykit.html#energykit.ektime.Time.previous_weekday">previous_weekday() (energykit.ektime.Time class method)</a>
   </dt>
 
       
@@ -619,18 +619,32 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="energykit.fake.html#energykit.fake.datastream.DataStream.set_value">set_value() (energykit.fake.datastream.DataStream method)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="energykit.html#energykit.ioloop.start">start() (in module energykit.ioloop)</a>
   </dt>
 
       
-  <dt><a href="energykit.html#energykit.pubsub.PubSub.subscribe">subscribe() (energykit.pubsub.PubSub method)</a>
+  <dt><a href="energykit.couchm.html#energykit.couchm.datastream.DataStream.subscribe">subscribe() (energykit.couchm.datastream.DataStream method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="energykit.html#energykit.indicator.PowerExtremaIndicator.subscribe">(energykit.indicator.PowerExtremaIndicator method)</a>
+  </dt>
+
+        
+  <dt><a href="energykit.html#energykit.pubsub.PubSub.subscribe">(energykit.pubsub.PubSub method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="energykit.html#energykit.pubsub.PubSub.subscription_count">subscription_count() (energykit.pubsub.PubSub method)</a>
   </dt>
 
   </dl></td>
@@ -659,12 +673,22 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="energykit.html#energykit.value.ValueType.UNKNOWN">UNKNOWN (energykit.value.ValueType attribute)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="energykit.html#energykit.indicator.PowerExtremaIndicator.unsubscribe">unsubscribe() (energykit.indicator.PowerExtremaIndicator method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="energykit.html#energykit.pubsub.PubSub.unsubscribe">(energykit.pubsub.PubSub method)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 

@@ -14,11 +14,7 @@ class DriverData(object):
     return '<DriverData output=%s, cache=%s>' % (self.output, self.cache)
 
 class Driver(object):
-  'implement .init and/or .run, you may use energykit.run_async'
-
-  def __init__(self, *args, **kwargs):
-    if 'init' in dir(self):
-      self.init(*args, **kwargs)
+  'implement .run; you may use energykit.run_async'
 
   def log(self, *message):
     print self.__class__.__name__ + ':', ' '.join(message)

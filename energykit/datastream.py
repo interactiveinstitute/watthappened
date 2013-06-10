@@ -17,9 +17,6 @@ class DataStream(PubSub):
   def interval(self, start_time=None, end_time=None):
     raise NotImplementedError
 
-  def observe(self, listener):
-    raise NotImplementedError
-
   def write(self, value):
     raise NotImplementedError
 

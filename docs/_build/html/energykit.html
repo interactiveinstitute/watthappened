@@ -141,11 +141,6 @@ in your code to access <a class="reference internal" href="#energykit.datasource
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="energykit.datastream.DataStream.observe">
-<tt class="descname">observe</tt><big>(</big><em>listener</em><big>)</big><a class="reference internal" href="_modules/energykit/datastream.html#DataStream.observe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datastream.DataStream.observe" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="energykit.datastream.DataStream.value_at">
 <tt class="descname">value_at</tt><big>(</big><em>time</em><big>)</big><a class="reference internal" href="_modules/energykit/datastream.html#DataStream.value_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datastream.DataStream.value_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -215,6 +210,11 @@ in your code to access <a class="reference internal" href="#energykit.datasource
 <dt id="energykit.ektime.Time">
 <em class="property">class </em><tt class="descclassname">energykit.ektime.</tt><tt class="descname">Time</tt><a class="reference internal" href="_modules/energykit/ektime.html#Time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pandas.tslib.Timestamp</span></tt></p>
+<dl class="attribute">
+<dt id="energykit.ektime.Time.MONDAY">
+<tt class="descname">MONDAY</tt><em class="property"> = 0</em><a class="headerlink" href="#energykit.ektime.Time.MONDAY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="energykit.ektime.Time.as_ms">
 <tt class="descname">as_ms</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/ektime.html#Time.as_ms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time.as_ms" title="Permalink to this definition">¶</a></dt>
@@ -253,6 +253,11 @@ in your code to access <a class="reference internal" href="#energykit.datasource
 <dl class="classmethod">
 <dt id="energykit.ektime.Time.now">
 <em class="property">classmethod </em><tt class="descname">now</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/ektime.html#Time.now"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time.now" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="energykit.ektime.Time.previous_weekday">
+<em class="property">classmethod </em><tt class="descname">previous_weekday</tt><big>(</big><em>time</em>, <em>weekday</em><big>)</big><a class="headerlink" href="#energykit.ektime.Time.previous_weekday" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -463,6 +468,16 @@ prestime Q(t0, t1) = dF[ps] with dt = t1-t0[s] and F0 = Q(0, t0)</p>
 <tt class="descname">subscribe</tt><big>(</big><em>listener</em>, <em>source=None</em><big>)</big><a class="reference internal" href="_modules/energykit/pubsub.html#PubSub.subscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.pubsub.PubSub.subscribe" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="energykit.pubsub.PubSub.subscription_count">
+<tt class="descname">subscription_count</tt><big>(</big><big>)</big><a class="headerlink" href="#energykit.pubsub.PubSub.subscription_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.pubsub.PubSub.unsubscribe">
+<tt class="descname">unsubscribe</tt><big>(</big><em>listener</em>, <em>source=None</em><big>)</big><a class="headerlink" href="#energykit.pubsub.PubSub.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -471,19 +486,52 @@ prestime Q(t0, t1) = dF[ps] with dt = t1-t0[s] and F0 = Q(0, t0)</p>
 <dl class="class">
 <dt id="energykit.indicator.Indicator">
 <em class="property">class </em><tt class="descclassname">energykit.indicator.</tt><tt class="descname">Indicator</tt><a class="reference internal" href="_modules/energykit/indicator.html#Indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.indicator.Indicator" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="energykit.indicator.Indicator.get_current_datapoint">
-<tt class="descname">get_current_datapoint</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/indicator.html#Indicator.get_current_datapoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.indicator.Indicator.get_current_datapoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#energykit.pubsub.PubSub" title="energykit.pubsub.PubSub"><tt class="xref py py-class docutils literal"><span class="pre">energykit.pubsub.PubSub</span></tt></a></p>
+<dl class="method">
+<dt id="energykit.indicator.Indicator.datapoints">
+<tt class="descname">datapoints</tt><big>(</big><big>)</big><a class="headerlink" href="#energykit.indicator.Indicator.datapoints" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">generator</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="energykit.indicator.PowerExtremaIndicator">
+<em class="property">class </em><tt class="descclassname">energykit.indicator.</tt><tt class="descname">PowerExtremaIndicator</tt><big>(</big><em>power_stream</em>, <em>start_time</em>, <em>end_time</em><big>)</big><a class="headerlink" href="#energykit.indicator.PowerExtremaIndicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#energykit.indicator.Indicator" title="energykit.indicator.Indicator"><tt class="xref py py-class docutils literal"><span class="pre">energykit.indicator.Indicator</span></tt></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>power_stream</strong> (<a class="reference internal" href="#energykit.datastream.DataStream" title="energykit.datastream.DataStream"><em>energykit.datastream.DataStream</em></a>) &#8211; </li>
+<li><strong>start_time</strong> (<a class="reference internal" href="#energykit.ektime.Time" title="energykit.ektime.Time"><em>energykit.ektime.Time</em></a>) &#8211; </li>
+<li><strong>end_time</strong> (<a class="reference internal" href="#energykit.ektime.Time" title="energykit.ektime.Time"><em>energykit.ektime.Time</em></a>) &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="energykit.indicator.PowerExtremaIndicator.datapoints">
+<tt class="descname">datapoints</tt><big>(</big><big>)</big><a class="headerlink" href="#energykit.indicator.PowerExtremaIndicator.datapoints" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="energykit.indicator.Indicator.get_current_time">
-<tt class="descname">get_current_time</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/indicator.html#Indicator.get_current_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.indicator.Indicator.get_current_time" title="Permalink to this definition">¶</a></dt>
+<dt id="energykit.indicator.PowerExtremaIndicator.subscribe">
+<tt class="descname">subscribe</tt><big>(</big><em>listener</em>, <em>topic=None</em><big>)</big><a class="headerlink" href="#energykit.indicator.PowerExtremaIndicator.subscribe" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="energykit.indicator.Indicator.get_current_value">
-<tt class="descname">get_current_value</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/indicator.html#Indicator.get_current_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.indicator.Indicator.get_current_value" title="Permalink to this definition">¶</a></dt>
+<dt id="energykit.indicator.PowerExtremaIndicator.unsubscribe">
+<tt class="descname">unsubscribe</tt><big>(</big><em>listener</em>, <em>topic=None</em><big>)</big><a class="headerlink" href="#energykit.indicator.PowerExtremaIndicator.unsubscribe" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
