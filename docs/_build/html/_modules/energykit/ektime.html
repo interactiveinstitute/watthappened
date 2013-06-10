@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>energykit.ektime &mdash; EnergyKit 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="EnergyKit 0.1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for energykit.ektime</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<div class="viewcode-block" id="Time"><a class="viewcode-back" href="../../energykit.html#energykit.ektime.Time">[docs]</a><span class="k">class</span> <span class="nc">Time</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">):</span>
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Time.from_json"><a class="viewcode-back" href="../../energykit.html#energykit.ektime.Time.from_json">[docs]</a>  <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">time_str</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="n">time_str</span><span class="p">)</span>
+</div>
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Time.from_ms"><a class="viewcode-back" href="../../energykit.html#energykit.ektime.Time.from_ms">[docs]</a>  <span class="k">def</span> <span class="nf">from_ms</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">milliseconds</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="n">milliseconds</span> <span class="o">*</span> <span class="mi">1000000</span><span class="p">)</span>
+</div>
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Time.from_s"><a class="viewcode-back" href="../../energykit.html#energykit.ektime.Time.from_s">[docs]</a>  <span class="k">def</span> <span class="nf">from_s</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">seconds</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">from_ms</span><span class="p">(</span><span class="n">seconds</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+</div>
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Time.infinity"><a class="viewcode-back" href="../../energykit.html#energykit.ektime.Time.infinity">[docs]</a>  <span class="k">def</span> <span class="nf">infinity</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s">&#39;inf&#39;</span><span class="p">)</span>
+</div>
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Time.now"><a class="viewcode-back" href="../../energykit.html#energykit.ektime.Time.now">[docs]</a>  <span class="k">def</span> <span class="nf">now</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">from_ms</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="Time.as_ms"><a class="viewcode-back" href="../../energykit.html#energykit.ektime.Time.as_ms">[docs]</a>  <span class="k">def</span> <span class="nf">as_ms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">/</span> <span class="mi">1000000</span>
+</div>
+<div class="viewcode-block" id="Time.as_s"><a class="viewcode-back" href="../../energykit.html#energykit.ektime.Time.as_s">[docs]</a>  <span class="k">def</span> <span class="nf">as_s</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_ms</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span>
+</div>
+<div class="viewcode-block" id="Time.as_week"><a class="viewcode-back" href="../../energykit.html#energykit.ektime.Time.as_week">[docs]</a>  <span class="k">def</span> <span class="nf">as_week</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;</span><span class="si">%03d%02d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">week</span><span class="p">)</span>
+</div>
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Time.weeks_around"><a class="viewcode-back" href="../../energykit.html#energykit.ektime.Time.weeks_around">[docs]</a>  <span class="k">def</span> <span class="nf">weeks_around</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">last</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">last</span> <span class="o">=</span> <span class="n">first</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+      <span class="c"># TODO(sander) this might be buggy, should write tests</span>
+    <span class="n">first</span> <span class="o">-=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">first</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">first</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">first</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">first</span><span class="o">.</span><span class="n">day</span><span class="p">))</span>
+    <span class="n">n_weeks</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">last</span> <span class="o">-</span> <span class="n">first</span><span class="p">)</span><span class="o">.</span><span class="n">days</span> <span class="o">/</span> <span class="mf">7.</span><span class="p">))</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="n">n_weeks</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s">&#39;W-MON&#39;</span><span class="p">)</span>
+    <span class="n">previous</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="n">times</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">previous</span><span class="p">:</span> <span class="k">yield</span> <span class="p">(</span><span class="n">previous</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span> <span class="n">previous</span> <span class="o">=</span> <span class="n">time</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Sander Dijkhuis, Interactive Institute.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

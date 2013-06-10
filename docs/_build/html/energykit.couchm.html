@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Couchm implementation: energykit.couchm &mdash; EnergyKit 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="EnergyKit 0.1.0 documentation" href="index.html" />
+    <link rel="next" title="Fake data implementation: energykit.fake" href="energykit.fake.html" />
+    <link rel="prev" title="Writing drivers" href="energykit.driver.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="energykit.fake.html" title="Fake data implementation: energykit.fake"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="energykit.driver.html" title="Writing drivers"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-energykit.couchm">
+<span id="couchm-implementation-energykit-couchm"></span><h1>Couchm implementation: <a class="reference internal" href="#module-energykit.couchm" title="energykit.couchm"><tt class="xref py py-mod docutils literal"><span class="pre">energykit.couchm</span></tt></a><a class="headerlink" href="#module-energykit.couchm" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-energykit.couchm.datasource"></span><dl class="class">
+<dt id="energykit.couchm.datasource.DataSource">
+<em class="property">class </em><tt class="descclassname">energykit.couchm.datasource.</tt><tt class="descname">DataSource</tt><big>(</big><em>server</em>, <em>user</em>, <em>password</em>, <em>database</em><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datasource.html#DataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datasource.DataSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="energykit.html#energykit.datasource.DataSource" title="energykit.datasource.DataSource"><tt class="xref py py-class docutils literal"><span class="pre">energykit.datasource.DataSource</span></tt></a>, <a class="reference internal" href="energykit.html#energykit.pubsub.PubSub" title="energykit.pubsub.PubSub"><tt class="xref py py-class docutils literal"><span class="pre">energykit.pubsub.PubSub</span></tt></a></p>
+<dl class="method">
+<dt id="energykit.couchm.datasource.DataSource.get_stream_keys">
+<tt class="descname">get_stream_keys</tt><big>(</big><em>allow_cached=True</em><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datasource.html#DataSource.get_stream_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datasource.DataSource.get_stream_keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.couchm.datasource.DataSource.load_driver_data">
+<tt class="descname">load_driver_data</tt><big>(</big><em>driver</em>, <em>id</em><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datasource.html#DataSource.load_driver_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datasource.DataSource.load_driver_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.couchm.datasource.DataSource.save_driver_data">
+<tt class="descname">save_driver_data</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datasource.html#DataSource.save_driver_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datasource.DataSource.save_driver_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.couchm.datasource.DataSource.write">
+<tt class="descname">write</tt><big>(</big><em>data</em>, <em>time=None</em><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datasource.html#DataSource.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datasource.DataSource.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-energykit.couchm.datastream"></span><dl class="class">
+<dt id="energykit.couchm.datastream.DataStream">
+<em class="property">class </em><tt class="descclassname">energykit.couchm.datastream.</tt><tt class="descname">DataStream</tt><big>(</big><em>source</em>, <em>key</em>, <em>type=0</em><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datastream.html#DataStream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datastream.DataStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="energykit.html#energykit.datastream.DataStream" title="energykit.datastream.DataStream"><tt class="xref py py-class docutils literal"><span class="pre">energykit.datastream.DataStream</span></tt></a></p>
+<dl class="method">
+<dt id="energykit.couchm.datastream.DataStream.domain">
+<tt class="descname">domain</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datastream.html#DataStream.domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datastream.DataStream.domain" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.couchm.datastream.DataStream.event_feed_name">
+<tt class="descname">event_feed_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datastream.html#DataStream.event_feed_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datastream.DataStream.event_feed_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.couchm.datastream.DataStream.interval">
+<tt class="descname">interval</tt><big>(</big><em>start_time=None</em>, <em>end_time=None</em><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datastream.html#DataStream.interval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datastream.DataStream.interval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.couchm.datastream.DataStream.observe">
+<tt class="descname">observe</tt><big>(</big><em>listener</em><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datastream.html#DataStream.observe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datastream.DataStream.observe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.couchm.datastream.DataStream.value_at">
+<tt class="descname">value_at</tt><big>(</big><em>time</em><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datastream.html#DataStream.value_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datastream.DataStream.value_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-energykit.couchm.datainterval"></span><dl class="class">
+<dt id="energykit.couchm.datainterval.DataInterval">
+<em class="property">class </em><tt class="descclassname">energykit.couchm.datainterval.</tt><tt class="descname">DataInterval</tt><big>(</big><em>stream</em>, <em>start_time=None</em>, <em>end_time=None</em><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datainterval.html#DataInterval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datainterval.DataInterval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="energykit.html#energykit.datainterval.DataInterval" title="energykit.datainterval.DataInterval"><tt class="xref py py-class docutils literal"><span class="pre">energykit.datainterval.DataInterval</span></tt></a></p>
+<dl class="method">
+<dt id="energykit.couchm.datainterval.DataInterval.extrema">
+<tt class="descname">extrema</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datainterval.html#DataInterval.extrema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datainterval.DataInterval.extrema" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.couchm.datainterval.DataInterval.last_measured_value">
+<tt class="descname">last_measured_value</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datainterval.html#DataInterval.last_measured_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datainterval.DataInterval.last_measured_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.couchm.datainterval.DataInterval.value_difference">
+<tt class="descname">value_difference</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/couchm/datainterval.html#DataInterval.value_difference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.couchm.datainterval.DataInterval.value_difference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="energykit.driver.html"
+                        title="previous chapter">Writing drivers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="energykit.fake.html"
+                        title="next chapter">Fake data implementation: <tt class="docutils literal"><span class="pre">energykit.fake</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/energykit.couchm.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="energykit.fake.html" title="Fake data implementation: energykit.fake"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="energykit.driver.html" title="Writing drivers"
+             >previous</a> |</li>
+        <li><a href="index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Sander Dijkhuis, Interactive Institute.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

@@ -1,21 +1,22 @@
-from __init__ import *
+if __name__ == '__main__':
+  from __init__ import *
 
-import config
+  import config
 
-source = DataSource(**config.COUCHDB['sp'])
+  source = DataSource(**config.COUCHDB['sp'])
 
-key = ('room241', 'ElectricPower')
-key = ('room256', 'ElectricPower')
+  key = ('room241', 'ElectricPower')
+  key = ('room256', 'ElectricPower')
 
-keys = source.get_stream_keys()
-assert key in keys
+  keys = source.get_stream_keys()
+  assert key in keys
 
-stream = source.get_stream_by_key(key)
-print 'last measured value:', stream.interval().last_measured_value()
+  stream = source.get_stream_by_key(key)
+  print 'last measured value:', stream.interval().last_measured_value()
 
-def handler(datapoint, source):
-  print 'change', datapoint
+  def handler(datapoint, source):
+    print 'change', datapoint
 
-stream.observe(handler)
+  stream.observe(handler)
 
-energykit.start()
+  energykit.start()

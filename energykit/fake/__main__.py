@@ -1,20 +1,21 @@
-from __init__ import *
+if __name__ == '__main__':
+  from __init__ import *
 
-source = DataSource()
+  source = DataSource()
 
-streams = (
-  source.get_stream_by_key(8000),
-  source.get_stream_by_key(8001),
-)
+  streams = (
+    source.get_stream_by_key(8000),
+    source.get_stream_by_key(8001),
+  )
 
-print 'keys:', source.get_stream_keys()
+  print 'keys:', source.get_stream_keys()
 
-for stream in streams:
-  print 'set value at', 'http://localhost:%d/' % stream.key
+  for stream in streams:
+    print 'set value at', 'http://localhost:%d/' % stream.key
 
-def handler(datapoint, source):
-  print 'change', datapoint, 'from', source
+  def handler(datapoint, source):
+    print 'change', datapoint, 'from', source
 
-source.subscribe(handler)
+  source.subscribe(handler)
 
-energykit.start()
+  energykit.start()

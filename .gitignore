@@ -1,5 +1,8 @@
 .DS_Store
 *.swp
+*.swo
 *~
 *.pyc
 config_priv.py
+docs/_build/doctrees
+docs/_build/html/_sources

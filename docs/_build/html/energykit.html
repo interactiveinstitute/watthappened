@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>energykit package &mdash; EnergyKit 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="EnergyKit 0.1.0 documentation" href="index.html" />
+    <link rel="next" title="Writing drivers" href="energykit.driver.html" />
+    <link rel="prev" title="Welcome to EnergyKit’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="energykit.driver.html" title="Writing drivers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to EnergyKit’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-energykit.__init__">
+<span id="energykit-package"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">energykit</span></tt> package<a class="headerlink" href="#module-energykit.__init__" title="Permalink to this headline">¶</a></h1>
+<p>A backend-agnostic library for working with energy measurements.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All classes documented on this page are directly available under
+the <tt class="xref py py-mod docutils literal"><span class="pre">energykit</span></tt> module prefix. So write <tt class="xref py py-class docutils literal"><span class="pre">energykit.DataSource</span></tt>
+in your code to access <a class="reference internal" href="#energykit.datasource.DataSource" title="energykit.datasource.DataSource"><tt class="xref py py-class docutils literal"><span class="pre">energykit.datasource.DataSource</span></tt></a>.</p>
+</div>
+<div class="section" id="module-energykit.datasource">
+<span id="data-sources"></span><h2>Data sources<a class="headerlink" href="#module-energykit.datasource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="energykit.datasource.DataSource">
+<em class="property">class </em><tt class="descclassname">energykit.datasource.</tt><tt class="descname">DataSource</tt><a class="reference internal" href="_modules/energykit/datasource.html#DataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datasource.DataSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>An interface to a backend that receives and/or provides data.</p>
+<dl class="method">
+<dt id="energykit.datasource.DataSource.get_stream_by_key">
+<tt class="descname">get_stream_by_key</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="_modules/energykit/datasource.html#DataSource.get_stream_by_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datasource.DataSource.get_stream_by_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datasource.DataSource.get_stream_keys">
+<tt class="descname">get_stream_keys</tt><big>(</big><em>allow_cached=True</em><big>)</big><a class="reference internal" href="_modules/energykit/datasource.html#DataSource.get_stream_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datasource.DataSource.get_stream_keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datasource.DataSource.load_driver_data">
+<tt class="descname">load_driver_data</tt><big>(</big><em>driver</em>, <em>id</em><big>)</big><a class="reference internal" href="_modules/energykit/datasource.html#DataSource.load_driver_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datasource.DataSource.load_driver_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datasource.DataSource.save_driver_data">
+<tt class="descname">save_driver_data</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="_modules/energykit/datasource.html#DataSource.save_driver_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datasource.DataSource.save_driver_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datasource.DataSource.write">
+<tt class="descname">write</tt><big>(</big><em>data</em>, <em>time=None</em><big>)</big><a class="reference internal" href="_modules/energykit/datasource.html#DataSource.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datasource.DataSource.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>data is a dict combining DataStream: value maps; value is JSONifiable</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-energykit.datastream">
+<span id="data-streams"></span><h2>Data streams<a class="headerlink" href="#module-energykit.datastream" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="energykit.datastream.DataStream">
+<em class="property">class </em><tt class="descclassname">energykit.datastream.</tt><tt class="descname">DataStream</tt><big>(</big><em>source</em>, <em>key</em>, <em>type=0</em><big>)</big><a class="reference internal" href="_modules/energykit/datastream.html#DataStream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datastream.DataStream" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="energykit.datastream.DataStream.domain">
+<tt class="descname">domain</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/datastream.html#DataStream.domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datastream.DataStream.domain" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datastream.DataStream.event_feed_name">
+<tt class="descname">event_feed_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/datastream.html#DataStream.event_feed_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datastream.DataStream.event_feed_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datastream.DataStream.interval">
+<tt class="descname">interval</tt><big>(</big><em>start_time=None</em>, <em>end_time=None</em><big>)</big><a class="reference internal" href="_modules/energykit/datastream.html#DataStream.interval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datastream.DataStream.interval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datastream.DataStream.observe">
+<tt class="descname">observe</tt><big>(</big><em>listener</em><big>)</big><a class="reference internal" href="_modules/energykit/datastream.html#DataStream.observe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datastream.DataStream.observe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datastream.DataStream.value_at">
+<tt class="descname">value_at</tt><big>(</big><em>time</em><big>)</big><a class="reference internal" href="_modules/energykit/datastream.html#DataStream.value_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datastream.DataStream.value_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datastream.DataStream.write">
+<tt class="descname">write</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/energykit/datastream.html#DataStream.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datastream.DataStream.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-energykit.datainterval">
+<span id="data-intervals"></span><h2>Data intervals<a class="headerlink" href="#module-energykit.datainterval" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="energykit.datainterval.DataInterval">
+<em class="property">class </em><tt class="descclassname">energykit.datainterval.</tt><tt class="descname">DataInterval</tt><big>(</big><em>stream</em>, <em>start_time=None</em>, <em>end_time=None</em><big>)</big><a class="reference internal" href="_modules/energykit/datainterval.html#DataInterval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datainterval.DataInterval" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="energykit.datainterval.DataInterval.extrema">
+<tt class="descname">extrema</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/datainterval.html#DataInterval.extrema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datainterval.DataInterval.extrema" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datainterval.DataInterval.highest_value">
+<tt class="descname">highest_value</tt><big>(</big><em>start_time</em>, <em>end_time</em><big>)</big><a class="reference internal" href="_modules/energykit/datainterval.html#DataInterval.highest_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datainterval.DataInterval.highest_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datainterval.DataInterval.last_measured_value">
+<tt class="descname">last_measured_value</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/datainterval.html#DataInterval.last_measured_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datainterval.DataInterval.last_measured_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datainterval.DataInterval.lowest_value">
+<tt class="descname">lowest_value</tt><big>(</big><em>start_time</em>, <em>end_time</em><big>)</big><a class="reference internal" href="_modules/energykit/datainterval.html#DataInterval.lowest_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datainterval.DataInterval.lowest_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datainterval.DataInterval.peak_period">
+<tt class="descname">peak_period</tt><big>(</big><em>length</em>, <em>start_time</em>, <em>end_time</em><big>)</big><a class="reference internal" href="_modules/energykit/datainterval.html#DataInterval.peak_period"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datainterval.DataInterval.peak_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.datainterval.DataInterval.value_difference">
+<tt class="descname">value_difference</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/datainterval.html#DataInterval.value_difference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datainterval.DataInterval.value_difference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-energykit.datapoint">
+<span id="data-points"></span><h2>Data points<a class="headerlink" href="#module-energykit.datapoint" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="energykit.datapoint.DataPoint">
+<em class="property">class </em><tt class="descclassname">energykit.datapoint.</tt><tt class="descname">DataPoint</tt><big>(</big><em>time=None</em>, <em>value=None</em>, <em>unit=None</em><big>)</big><a class="reference internal" href="_modules/energykit/datapoint.html#DataPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datapoint.DataPoint" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="energykit.datapoint.DataPoint.is_empty">
+<tt class="descname">is_empty</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/datapoint.html#DataPoint.is_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datapoint.DataPoint.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-energykit.ektime">
+<span id="time"></span><h2>Time<a class="headerlink" href="#module-energykit.ektime" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="energykit.ektime.Time">
+<em class="property">class </em><tt class="descclassname">energykit.ektime.</tt><tt class="descname">Time</tt><a class="reference internal" href="_modules/energykit/ektime.html#Time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pandas.tslib.Timestamp</span></tt></p>
+<dl class="method">
+<dt id="energykit.ektime.Time.as_ms">
+<tt class="descname">as_ms</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/ektime.html#Time.as_ms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time.as_ms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.ektime.Time.as_s">
+<tt class="descname">as_s</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/ektime.html#Time.as_s"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time.as_s" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.ektime.Time.as_week">
+<tt class="descname">as_week</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/ektime.html#Time.as_week"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time.as_week" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="energykit.ektime.Time.from_json">
+<em class="property">classmethod </em><tt class="descname">from_json</tt><big>(</big><em>time_str</em><big>)</big><a class="reference internal" href="_modules/energykit/ektime.html#Time.from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time.from_json" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="energykit.ektime.Time.from_ms">
+<em class="property">classmethod </em><tt class="descname">from_ms</tt><big>(</big><em>milliseconds</em><big>)</big><a class="reference internal" href="_modules/energykit/ektime.html#Time.from_ms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time.from_ms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="energykit.ektime.Time.from_s">
+<em class="property">classmethod </em><tt class="descname">from_s</tt><big>(</big><em>seconds</em><big>)</big><a class="reference internal" href="_modules/energykit/ektime.html#Time.from_s"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time.from_s" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="energykit.ektime.Time.infinity">
+<em class="property">classmethod </em><tt class="descname">infinity</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/ektime.html#Time.infinity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time.infinity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="energykit.ektime.Time.now">
+<em class="property">classmethod </em><tt class="descname">now</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/ektime.html#Time.now"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time.now" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="energykit.ektime.Time.weeks_around">
+<em class="property">classmethod </em><tt class="descname">weeks_around</tt><big>(</big><em>first</em>, <em>last=None</em><big>)</big><a class="reference internal" href="_modules/energykit/ektime.html#Time.weeks_around"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ektime.Time.weeks_around" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-energykit.value">
+<span id="values"></span><h2>Values<a class="headerlink" href="#module-energykit.value" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="energykit.value.EnergyValue">
+<em class="property">class </em><tt class="descclassname">energykit.value.</tt><tt class="descname">EnergyValue</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="_modules/energykit/value.html#EnergyValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.EnergyValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#energykit.value.PiecewiseLinearValue" title="energykit.value.PiecewiseLinearValue"><tt class="xref py py-class docutils literal"><span class="pre">energykit.value.PiecewiseLinearValue</span></tt></a></p>
+<dl class="method">
+<dt id="energykit.value.EnergyValue.as_W">
+<tt class="descname">as_W</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/value.html#EnergyValue.as_W"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.EnergyValue.as_W" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.value.EnergyValue.as_Wh">
+<tt class="descname">as_Wh</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/value.html#EnergyValue.as_Wh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.EnergyValue.as_Wh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.value.EnergyValue.current_as_Wh">
+<tt class="descname">current_as_Wh</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/value.html#EnergyValue.current_as_Wh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.EnergyValue.current_as_Wh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="energykit.value.EnergyValue.derivative">
+<tt class="descname">derivative</tt><em class="property"> = 'W'</em><a class="headerlink" href="#energykit.value.EnergyValue.derivative" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="energykit.value.EnergyValue.from_energy">
+<em class="property">classmethod </em><tt class="descname">from_energy</tt><big>(</big><em>t1</em>, <em>E1</em>, <em>t0=0</em>, <em>E0=0</em><big>)</big><a class="reference internal" href="_modules/energykit/value.html#EnergyValue.from_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.EnergyValue.from_energy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="energykit.value.EnergyValue.from_power">
+<em class="property">classmethod </em><tt class="descname">from_power</tt><big>(</big><em>P</em>, <em>t=None</em><big>)</big><a class="reference internal" href="_modules/energykit/value.html#EnergyValue.from_power"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.EnergyValue.from_power" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="energykit.value.EnergyValue.unit">
+<tt class="descname">unit</tt><em class="property"> = 'Ws'</em><a class="headerlink" href="#energykit.value.EnergyValue.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="energykit.value.EnergyValue.zero">
+<tt class="descname">zero</tt><em class="property"> = 0</em><a class="headerlink" href="#energykit.value.EnergyValue.zero" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="energykit.value.PiecewiseLinearValue">
+<em class="property">class </em><tt class="descclassname">energykit.value.</tt><tt class="descname">PiecewiseLinearValue</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="_modules/energykit/value.html#PiecewiseLinearValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.PiecewiseLinearValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#energykit.value.Value" title="energykit.value.Value"><tt class="xref py py-class docutils literal"><span class="pre">energykit.value.Value</span></tt></a></p>
+<dl class="method">
+<dt id="energykit.value.PiecewiseLinearValue.predicted_at">
+<tt class="descname">predicted_at</tt><big>(</big><em>time</em><big>)</big><a class="reference internal" href="_modules/energykit/value.html#PiecewiseLinearValue.predicted_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.PiecewiseLinearValue.predicted_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.value.PiecewiseLinearValue.predicted_time_until">
+<tt class="descname">predicted_time_until</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/energykit/value.html#PiecewiseLinearValue.predicted_time_until"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.PiecewiseLinearValue.predicted_time_until" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.value.PiecewiseLinearValue.set">
+<tt class="descname">set</tt><big>(</big><em>dF=0</em>, <em>dt=1</em>, <em>t1=1</em>, <em>F0=0</em><big>)</big><a class="reference internal" href="_modules/energykit/value.html#PiecewiseLinearValue.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.PiecewiseLinearValue.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>dF is the difference in the primitive of the value
+dt is the time window duration in which the value was measured, in s
+t1 is the end of the time window, as a Time object
+F0 is the value of the primitive at t1-dt, or 0</p>
+<p>e.g. a plugwise measurement:
+energy E(t0, t1) = dF[Ws] with dt = t1-t0[s] and F0 = E(0, t0)</p>
+<blockquote>
+<div>given by F0 = E(0, t0), F1 = E(0, t1) = F0+dF, dt=t1-t0</div></blockquote>
+<dl class="docutils">
+<dt>power P(t1) = dF[Ws]/1[s] = dF[W] over interval [t1-dt, t1) with dt=1</dt>
+<dd>given by dF, dt=1, t1=now</dd>
+</dl>
+<p>e.g. if we express presence as 1p or 0p, and presence time as &#8216;pseconds&#8217;:
+presence q(t1) = dF[ps]/1[s] = dF[p] in {0,1} over interval &#8221; with &#8221;
+prestime Q(t0, t1) = dF[ps] with dt = t1-t0[s] and F0 = Q(0, t0)</p>
+<p>dF and F0 may be any vector value of the same type.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="energykit.value.PresenceTimeValue">
+<em class="property">class </em><tt class="descclassname">energykit.value.</tt><tt class="descname">PresenceTimeValue</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="_modules/energykit/value.html#PresenceTimeValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.PresenceTimeValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#energykit.value.PiecewiseLinearValue" title="energykit.value.PiecewiseLinearValue"><tt class="xref py py-class docutils literal"><span class="pre">energykit.value.PiecewiseLinearValue</span></tt></a></p>
+<dl class="attribute">
+<dt id="energykit.value.PresenceTimeValue.derivative">
+<tt class="descname">derivative</tt><em class="property"> = 'presence'</em><a class="headerlink" href="#energykit.value.PresenceTimeValue.derivative" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="energykit.value.PresenceTimeValue.unit">
+<tt class="descname">unit</tt><em class="property"> = 'presence s'</em><a class="headerlink" href="#energykit.value.PresenceTimeValue.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="energykit.value.PresenceTimeValue.zero">
+<tt class="descname">zero</tt><em class="property"> = 0</em><a class="headerlink" href="#energykit.value.PresenceTimeValue.zero" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="energykit.value.Value">
+<em class="property">class </em><tt class="descclassname">energykit.value.</tt><tt class="descname">Value</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="_modules/energykit/value.html#Value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.Value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="energykit.value.Value.current">
+<tt class="descname">current</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/value.html#Value.current"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.Value.current" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.value.Value.predicted_at">
+<tt class="descname">predicted_at</tt><big>(</big><em>time</em><big>)</big><a class="reference internal" href="_modules/energykit/value.html#Value.predicted_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.Value.predicted_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.value.Value.predicted_time_when">
+<tt class="descname">predicted_time_when</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/energykit/value.html#Value.predicted_time_when"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.Value.predicted_time_when" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.value.Value.set">
+<tt class="descname">set</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/value.html#Value.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.Value.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="energykit.value.ValueType">
+<em class="property">class </em><tt class="descclassname">energykit.value.</tt><tt class="descname">ValueType</tt><a class="reference internal" href="_modules/energykit/value.html#ValueType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.value.ValueType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="energykit.value.ValueType.ENERGY">
+<tt class="descname">ENERGY</tt><em class="property"> = 2</em><a class="headerlink" href="#energykit.value.ValueType.ENERGY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="energykit.value.ValueType.POWER">
+<tt class="descname">POWER</tt><em class="property"> = 1</em><a class="headerlink" href="#energykit.value.ValueType.POWER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="energykit.value.ValueType.PRESENCE">
+<tt class="descname">PRESENCE</tt><em class="property"> = 3</em><a class="headerlink" href="#energykit.value.ValueType.PRESENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="energykit.value.ValueType.PRESENCE_TIME">
+<tt class="descname">PRESENCE_TIME</tt><em class="property"> = 4</em><a class="headerlink" href="#energykit.value.ValueType.PRESENCE_TIME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="energykit.value.ValueType.UNKNOWN">
+<tt class="descname">UNKNOWN</tt><em class="property"> = 0</em><a class="headerlink" href="#energykit.value.ValueType.UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-energykit.ioloop">
+<span id="the-io-loop"></span><h2>The IO loop<a class="headerlink" href="#module-energykit.ioloop" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="energykit.ioloop.IOLoop">
+<em class="property">class </em><tt class="descclassname">energykit.ioloop.</tt><tt class="descname">IOLoop</tt><a class="reference internal" href="_modules/energykit/ioloop.html#IOLoop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ioloop.IOLoop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">tornado.ioloop.IOLoop</span></tt></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="energykit.ioloop.run_async">
+<tt class="descclassname">energykit.ioloop.</tt><tt class="descname">run_async</tt><big>(</big><em>run</em>, <em>callback</em><big>)</big><a class="reference internal" href="_modules/energykit/ioloop.html#run_async"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ioloop.run_async" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note: callback runs in the main loop, run in another thread</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="energykit.ioloop.start">
+<tt class="descclassname">energykit.ioloop.</tt><tt class="descname">start</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/ioloop.html#start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.ioloop.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-energykit.pubsub">
+<span id="publish-subscribe"></span><h2>Publish-subscribe<a class="headerlink" href="#module-energykit.pubsub" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="energykit.pubsub.PubSub">
+<em class="property">class </em><tt class="descclassname">energykit.pubsub.</tt><tt class="descname">PubSub</tt><a class="reference internal" href="_modules/energykit/pubsub.html#PubSub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.pubsub.PubSub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="energykit.pubsub.PubSub.publish">
+<tt class="descname">publish</tt><big>(</big><em>data=None</em>, <em>source=None</em><big>)</big><a class="reference internal" href="_modules/energykit/pubsub.html#PubSub.publish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.pubsub.PubSub.publish" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.pubsub.PubSub.subscribe">
+<tt class="descname">subscribe</tt><big>(</big><em>listener</em>, <em>source=None</em><big>)</big><a class="reference internal" href="_modules/energykit/pubsub.html#PubSub.subscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.pubsub.PubSub.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-energykit.indicator">
+<span id="indicators"></span><h2>Indicators<a class="headerlink" href="#module-energykit.indicator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="energykit.indicator.Indicator">
+<em class="property">class </em><tt class="descclassname">energykit.indicator.</tt><tt class="descname">Indicator</tt><a class="reference internal" href="_modules/energykit/indicator.html#Indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.indicator.Indicator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="energykit.indicator.Indicator.get_current_datapoint">
+<tt class="descname">get_current_datapoint</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/indicator.html#Indicator.get_current_datapoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.indicator.Indicator.get_current_datapoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.indicator.Indicator.get_current_time">
+<tt class="descname">get_current_time</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/indicator.html#Indicator.get_current_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.indicator.Indicator.get_current_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.indicator.Indicator.get_current_value">
+<tt class="descname">get_current_value</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/indicator.html#Indicator.get_current_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.indicator.Indicator.get_current_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">energykit</span></tt> package</a><ul>
+<li><a class="reference internal" href="#module-energykit.datasource">Data sources</a></li>
+<li><a class="reference internal" href="#module-energykit.datastream">Data streams</a></li>
+<li><a class="reference internal" href="#module-energykit.datainterval">Data intervals</a></li>
+<li><a class="reference internal" href="#module-energykit.datapoint">Data points</a></li>
+<li><a class="reference internal" href="#module-energykit.ektime">Time</a></li>
+<li><a class="reference internal" href="#module-energykit.value">Values</a></li>
+<li><a class="reference internal" href="#module-energykit.ioloop">The IO loop</a></li>
+<li><a class="reference internal" href="#module-energykit.pubsub">Publish-subscribe</a></li>
+<li><a class="reference internal" href="#module-energykit.indicator">Indicators</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to EnergyKit&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="energykit.driver.html"
+                        title="next chapter">Writing drivers</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/energykit.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="energykit.driver.html" title="Writing drivers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to EnergyKit’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Sander Dijkhuis, Interactive Institute.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

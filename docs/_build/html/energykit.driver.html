@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Writing drivers &mdash; EnergyKit 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="EnergyKit 0.1.0 documentation" href="index.html" />
+    <link rel="next" title="Couchm implementation: energykit.couchm" href="energykit.couchm.html" />
+    <link rel="prev" title="Plugwise implementation: energykit.plugwise" href="energykit.plugwise.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="energykit.couchm.html" title="Couchm implementation: energykit.couchm"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="energykit.plugwise.html" title="Plugwise implementation: energykit.plugwise"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-energykit.driver">
+<span id="writing-drivers"></span><h1>Writing drivers<a class="headerlink" href="#module-energykit.driver" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="energykit.driver.Driver">
+<em class="property">class </em><tt class="descclassname">energykit.driver.</tt><tt class="descname">Driver</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/energykit/driver.html#Driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.driver.Driver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>implement .init and/or .run, you may use energykit.run_async</p>
+<dl class="method">
+<dt id="energykit.driver.Driver.load_data">
+<tt class="descname">load_data</tt><big>(</big><em>source</em>, <em>id=None</em><big>)</big><a class="reference internal" href="_modules/energykit/driver.html#Driver.load_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.driver.Driver.load_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.driver.Driver.load_or_create_data">
+<tt class="descname">load_or_create_data</tt><big>(</big><em>source</em>, <em>id=None</em><big>)</big><a class="reference internal" href="_modules/energykit/driver.html#Driver.load_or_create_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.driver.Driver.load_or_create_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="energykit.driver.Driver.log">
+<tt class="descname">log</tt><big>(</big><em>*message</em><big>)</big><a class="reference internal" href="_modules/energykit/driver.html#Driver.log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.driver.Driver.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="energykit.driver.DriverData">
+<em class="property">class </em><tt class="descclassname">energykit.driver.</tt><tt class="descname">DriverData</tt><big>(</big><em>source</em>, <em>driver</em>, <em>id</em><big>)</big><a class="reference internal" href="_modules/energykit/driver.html#DriverData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.driver.DriverData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="energykit.driver.DriverData.save">
+<tt class="descname">save</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/energykit/driver.html#DriverData.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.driver.DriverData.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="energykit.plugwise.html"
+                        title="previous chapter">Plugwise implementation: <tt class="docutils literal"><span class="pre">energykit.plugwise</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="energykit.couchm.html"
+                        title="next chapter">Couchm implementation: <tt class="docutils literal"><span class="pre">energykit.couchm</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/energykit.driver.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="energykit.couchm.html" title="Couchm implementation: energykit.couchm"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="energykit.plugwise.html" title="Plugwise implementation: energykit.plugwise"
+             >previous</a> |</li>
+        <li><a href="index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Sander Dijkhuis, Interactive Institute.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

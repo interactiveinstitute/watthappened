@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>energykit.couchm.datasource &mdash; EnergyKit 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="EnergyKit 0.1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for energykit.couchm.datasource</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">.. module:: datasource</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">import</span> <span class="nn">couchdbkit</span>
+<span class="kn">import</span> <span class="nn">restkit</span>
+
+<span class="kn">import</span> <span class="nn">energykit</span>
+
+<span class="kn">from</span> <span class="nn">datastream</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="DataSource"><a class="viewcode-back" href="../../../energykit.couchm.html#energykit.couchm.datasource.DataSource">[docs]</a><span class="k">class</span> <span class="nc">DataSource</span><span class="p">(</span><span class="n">energykit</span><span class="o">.</span><span class="n">DataSource</span><span class="p">,</span> <span class="n">energykit</span><span class="o">.</span><span class="n">PubSub</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">database</span><span class="p">):</span>
+    <span class="n">energykit</span><span class="o">.</span><span class="n">DataSource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">energykit</span><span class="o">.</span><span class="n">PubSub</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_user</span> <span class="o">=</span> <span class="n">user</span>
+    <span class="n">auth</span> <span class="o">=</span> <span class="n">restkit</span><span class="o">.</span><span class="n">BasicAuth</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">couchdbkit</span><span class="o">.</span><span class="n">Server</span><span class="p">(</span><span class="n">uri</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="n">auth</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">get_db</span><span class="p">(</span><span class="n">database</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_listening</span> <span class="o">=</span> <span class="bp">False</span>
+
+  <span class="k">def</span> <span class="nf">_update_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="s">&#39;energy_data/feeds_and_datastreams&#39;</span><span class="p">,</span>
+        <span class="s">&#39;by_source_and_time&#39;</span><span class="p">,</span> <span class="n">group_level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_feeds</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s">&#39;feeds&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_datastreams</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s">&#39;datastreams&#39;</span><span class="p">]</span>
+
+    <span class="c"># We&#39;ll use these indices to interpret query results.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_at_idx</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s">&#39;at_idx&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_datastream_idx</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s">&#39;datastream_idx&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="DataSource.get_stream_keys"><a class="viewcode-back" href="../../../energykit.couchm.html#energykit.couchm.datasource.DataSource.get_stream_keys">[docs]</a>  <span class="k">def</span> <span class="nf">get_stream_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allow_cached</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;_datastreams&#39;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">allow_cached</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update_info</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">f</span><span class="p">,</span> <span class="n">ds</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feeds</span> <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datastreams</span><span class="p">]</span>
+</div>
+  <span class="k">def</span> <span class="nf">_create_stream_instance_by_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;_datastreams&#39;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update_info</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">DataStream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_listen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_last_changes</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">update_seq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">info</span><span class="p">()[</span><span class="s">&#39;update_seq&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">include_last_changes</span>
+    <span class="n">stream</span> <span class="o">=</span> <span class="n">couchdbkit</span><span class="o">.</span><span class="n">changes</span><span class="o">.</span><span class="n">ChangesStream</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">,</span>
+                                              <span class="n">feed</span><span class="o">=</span><span class="s">&#39;continuous&#39;</span><span class="p">,</span>
+                                              <span class="nb">filter</span><span class="o">=</span><span class="s">&#39;energy_data/measurements&#39;</span><span class="p">,</span>
+                                              <span class="n">heartbeat</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                              <span class="n">since</span><span class="o">=</span><span class="n">update_seq</span><span class="p">,</span>
+                                              <span class="n">include_docs</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_listening</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+      <span class="n">doc</span> <span class="o">=</span> <span class="n">change</span><span class="p">[</span><span class="s">&#39;doc&#39;</span><span class="p">]</span>
+      <span class="n">time</span> <span class="o">=</span> <span class="n">energykit</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">from_ms</span><span class="p">(</span><span class="n">doc</span><span class="p">[</span><span class="s">&#39;timestamp&#39;</span><span class="p">])</span>
+      <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datastreams</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+          <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_stream_by_key</span><span class="p">((</span><span class="n">doc</span><span class="p">[</span><span class="s">&#39;source&#39;</span><span class="p">],</span> <span class="n">key</span><span class="p">))</span>
+          <span class="n">value</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+          <span class="n">datapoint</span> <span class="o">=</span> <span class="n">energykit</span><span class="o">.</span><span class="n">DataPoint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">datapoint</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">callback</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">change</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span> <span class="n">callback</span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
+
+    <span class="n">energykit</span><span class="o">.</span><span class="n">run_async</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DataSource.write"><a class="viewcode-back" href="../../../energykit.couchm.html#energykit.couchm.datasource.DataSource.write">[docs]</a>  <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+      <span class="n">time</span> <span class="o">=</span> <span class="n">energykit</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">docs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">feed_name</span><span class="p">,</span> <span class="n">datastream_name</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">feed_name</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+        <span class="n">docs</span><span class="p">[</span><span class="n">feed_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&#39;measurement&#39;</span><span class="p">,</span>
+          <span class="s">&#39;user&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user</span><span class="p">,</span>
+          <span class="s">&#39;source&#39;</span><span class="p">:</span> <span class="n">feed_name</span><span class="p">,</span>
+          <span class="s">&#39;timestamp&#39;</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">as_ms</span><span class="p">()</span>
+        <span class="p">}</span>
+      <span class="n">docs</span><span class="p">[</span><span class="n">feed_name</span><span class="p">][</span><span class="n">datastream_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[(</span><span class="n">feed_name</span><span class="p">,</span> <span class="n">datastream_name</span><span class="p">)]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">save_docs</span><span class="p">(</span><span class="n">docs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</div>
+  <span class="k">def</span> <span class="nf">_driver_data_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="nb">id</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">return</span> <span class="s">&#39;driverdata:</span><span class="si">%s</span><span class="s">:</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DataSource.load_driver_data"><a class="viewcode-back" href="../../../energykit.couchm.html#energykit.couchm.datasource.DataSource.load_driver_data">[docs]</a>  <span class="k">def</span> <span class="nf">load_driver_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="n">doc_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver_data_id</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">doc_id</span><span class="p">)</span>
+      <span class="n">data</span> <span class="o">=</span> <span class="n">energykit</span><span class="o">.</span><span class="n">DriverData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+      <span class="n">data</span><span class="o">.</span><span class="n">_rev</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="s">&#39;_rev&#39;</span><span class="p">]</span>
+      <span class="k">if</span> <span class="s">&#39;cache&#39;</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="s">&#39;cache&#39;</span><span class="p">]</span>
+      <span class="k">if</span> <span class="s">&#39;output&#39;</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="s">&#39;output&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="n">couchdbkit</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ResourceNotFound</span><span class="p">:</span>
+      <span class="n">data</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="n">data</span>
+</div>
+<div class="viewcode-block" id="DataSource.save_driver_data"><a class="viewcode-back" href="../../../energykit.couchm.html#energykit.couchm.datasource.DataSource.save_driver_data">[docs]</a>  <span class="k">def</span> <span class="nf">save_driver_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s">&#39;_id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver_data_id</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">driver</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+      <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&#39;driverdata&#39;</span><span class="p">,</span>
+      <span class="s">&#39;driver_type&#39;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+      <span class="s">&#39;user&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user</span><span class="p">,</span>
+      <span class="s">&#39;cache&#39;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">cache</span><span class="p">,</span>
+      <span class="s">&#39;output&#39;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="s">&#39;_rev&#39;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">data</span><span class="p">):</span> <span class="n">doc</span><span class="p">[</span><span class="s">&#39;_rev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">_rev</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">save_doc</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">_rev</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="s">&#39;_rev&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">True</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Sander Dijkhuis, Interactive Institute.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

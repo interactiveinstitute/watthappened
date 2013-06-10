@@ -1,4 +1,7 @@
 class DataSource(object):
+  '''An interface to a backend that receives and/or provides data.
+  '''
+
   def __init__(self):
     self._instances = {}
 

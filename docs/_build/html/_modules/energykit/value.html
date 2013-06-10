@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>energykit.value &mdash; EnergyKit 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="EnergyKit 0.1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for energykit.value</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">ektime</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="Value"><a class="viewcode-back" href="../../energykit.html#energykit.value.Value">[docs]</a><span class="k">class</span> <span class="nc">Value</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Value.set"><a class="viewcode-back" href="../../energykit.html#energykit.value.Value.set">[docs]</a>  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</div>
+<div class="viewcode-block" id="Value.current"><a class="viewcode-back" href="../../energykit.html#energykit.value.Value.current">[docs]</a>  <span class="k">def</span> <span class="nf">current</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">predicted_at</span><span class="p">(</span><span class="n">Time</span><span class="o">.</span><span class="n">from_s</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span>
+</div>
+<div class="viewcode-block" id="Value.predicted_at"><a class="viewcode-back" href="../../energykit.html#energykit.value.Value.predicted_at">[docs]</a>  <span class="k">def</span> <span class="nf">predicted_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</div>
+<div class="viewcode-block" id="Value.predicted_time_when"><a class="viewcode-back" href="../../energykit.html#energykit.value.Value.predicted_time_when">[docs]</a>  <span class="k">def</span> <span class="nf">predicted_time_when</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</div></div>
+<div class="viewcode-block" id="PiecewiseLinearValue"><a class="viewcode-back" href="../../energykit.html#energykit.value.PiecewiseLinearValue">[docs]</a><span class="k">class</span> <span class="nc">PiecewiseLinearValue</span><span class="p">(</span><span class="n">Value</span><span class="p">):</span>
+<div class="viewcode-block" id="PiecewiseLinearValue.set"><a class="viewcode-back" href="../../energykit.html#energykit.value.PiecewiseLinearValue.set">[docs]</a>  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dF</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">t1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">F0</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    dF is the difference in the primitive of the value</span>
+<span class="sd">    dt is the time window duration in which the value was measured, in s</span>
+<span class="sd">    t1 is the end of the time window, as a Time object</span>
+<span class="sd">    F0 is the value of the primitive at t1-dt, or 0</span>
+
+<span class="sd">    e.g. a plugwise measurement:</span>
+<span class="sd">    energy E(t0, t1) = dF[Ws] with dt = t1-t0[s] and F0 = E(0, t0)</span>
+<span class="sd">      given by F0 = E(0, t0), F1 = E(0, t1) = F0+dF, dt=t1-t0</span>
+<span class="sd">    power P(t1) = dF[Ws]/1[s] = dF[W] over interval [t1-dt, t1) with dt=1</span>
+<span class="sd">      given by dF, dt=1, t1=now</span>
+
+<span class="sd">    e.g. if we express presence as 1p or 0p, and presence time as &#39;pseconds&#39;:</span>
+<span class="sd">    presence q(t1) = dF[ps]/1[s] = dF[p] in {0,1} over interval &quot; with &quot;</span>
+<span class="sd">    prestime Q(t0, t1) = dF[ps] with dt = t1-t0[s] and F0 = Q(0, t0)</span>
+
+<span class="sd">    dF and F0 may be any vector value of the same type.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">zero</span> <span class="o">=</span> <span class="n">dF</span> <span class="o">*</span> <span class="mi">0</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">dF</span> <span class="o">=</span> <span class="n">dF</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t1</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">as_s</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t1</span> <span class="o">-</span> <span class="n">dt</span>
+    <span class="k">if</span> <span class="n">F0</span> <span class="ow">is</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">F0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">F0</span> <span class="o">=</span> <span class="n">F0</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">dFdt</span> <span class="o">=</span> <span class="n">dF</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">dt</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="PiecewiseLinearValue.predicted_at"><a class="viewcode-back" href="../../energykit.html#energykit.value.PiecewiseLinearValue.predicted_at">[docs]</a>  <span class="k">def</span> <span class="nf">predicted_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">as_s</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">t0</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">F0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dFdt</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">t0</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="PiecewiseLinearValue.predicted_time_until"><a class="viewcode-back" href="../../energykit.html#energykit.value.PiecewiseLinearValue.predicted_time_until">[docs]</a>  <span class="k">def</span> <span class="nf">predicted_time_until</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">F1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">F0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dF</span>
+    <span class="n">value</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">F0</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">value</span> <span class="o">&gt;</span> <span class="n">F1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dFdt</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero</span><span class="p">)</span> <span class="ow">or</span>
+        <span class="p">(</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">F1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dFdt</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero</span><span class="p">)):</span>
+      <span class="n">seconds</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">F0</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dFdt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">F0</span><span class="p">:</span>
+      <span class="n">seconds</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">seconds</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">&#39;inf&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">seconds</span>
+</div></div>
+<div class="viewcode-block" id="EnergyValue"><a class="viewcode-back" href="../../energykit.html#energykit.value.EnergyValue">[docs]</a><span class="k">class</span> <span class="nc">EnergyValue</span><span class="p">(</span><span class="n">PiecewiseLinearValue</span><span class="p">):</span>
+  <span class="n">unit</span> <span class="o">=</span> <span class="s">&#39;Ws&#39;</span>
+  <span class="n">derivative</span> <span class="o">=</span> <span class="s">&#39;W&#39;</span>
+  <span class="n">zero</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="EnergyValue.from_power"><a class="viewcode-back" href="../../energykit.html#energykit.value.EnergyValue.from_power">[docs]</a>  <span class="k">def</span> <span class="nf">from_power</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</div>
+  <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="EnergyValue.from_energy"><a class="viewcode-back" href="../../energykit.html#energykit.value.EnergyValue.from_energy">[docs]</a>  <span class="k">def</span> <span class="nf">from_energy</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">E1</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">E0</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="n">E1</span> <span class="o">-</span> <span class="n">E0</span><span class="p">,</span> <span class="n">t1</span><span class="o">.</span><span class="n">as_s</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="o">.</span><span class="n">as_s</span><span class="p">(),</span> <span class="n">t1</span><span class="p">,</span> <span class="n">E0</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="EnergyValue.as_W"><a class="viewcode-back" href="../../energykit.html#energykit.value.EnergyValue.as_W">[docs]</a>  <span class="k">def</span> <span class="nf">as_W</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dFdt</span>
+</div>
+<div class="viewcode-block" id="EnergyValue.as_Wh"><a class="viewcode-back" href="../../energykit.html#energykit.value.EnergyValue.as_Wh">[docs]</a>  <span class="k">def</span> <span class="nf">as_Wh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dF</span> <span class="o">/</span> <span class="mi">3600</span>
+</div>
+<div class="viewcode-block" id="EnergyValue.current_as_Wh"><a class="viewcode-back" href="../../energykit.html#energykit.value.EnergyValue.current_as_Wh">[docs]</a>  <span class="k">def</span> <span class="nf">current_as_Wh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="p">()</span>
+</div>
+  <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;</span><span class="si">%.1f</span><span class="s"> Ws over </span><span class="si">%.1f</span><span class="s"> s&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dF</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ValueType"><a class="viewcode-back" href="../../energykit.html#energykit.value.ValueType">[docs]</a><span class="k">class</span> <span class="nc">ValueType</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="n">UNKNOWN</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">POWER</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="n">ENERGY</span> <span class="o">=</span> <span class="mi">2</span>
+  <span class="n">PRESENCE</span> <span class="o">=</span> <span class="mi">3</span>
+  <span class="n">PRESENCE_TIME</span> <span class="o">=</span> <span class="mi">4</span>
+</div>
+<div class="viewcode-block" id="PresenceTimeValue"><a class="viewcode-back" href="../../energykit.html#energykit.value.PresenceTimeValue">[docs]</a><span class="k">class</span> <span class="nc">PresenceTimeValue</span><span class="p">(</span><span class="n">PiecewiseLinearValue</span><span class="p">):</span>
+  <span class="n">unit</span> <span class="o">=</span> <span class="s">&#39;presence s&#39;</span>
+  <span class="n">derivative</span> <span class="o">=</span> <span class="s">&#39;presence&#39;</span>
+  <span class="n">zero</span> <span class="o">=</span> <span class="mi">0</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+  <span class="k">print</span> <span class="s">&#39;Tests (read the code):&#39;</span>
+  <span class="k">print</span>
+
+  <span class="c"># PlugWise example input</span>
+  <span class="n">during_last_second</span> <span class="o">=</span> <span class="mf">0.042</span> <span class="c"># Wh</span>
+  <span class="n">t</span> <span class="o">=</span> <span class="n">Time</span><span class="p">()</span>
+  <span class="n">val</span> <span class="o">=</span> <span class="n">EnergyValue</span><span class="o">.</span><span class="n">from_power</span><span class="p">(</span><span class="n">during_last_second</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+  <span class="k">print</span> <span class="s">&#39;PlugWise reported </span><span class="si">%.1f</span><span class="s"> W at </span><span class="si">%s</span><span class="s">.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">as_W</span><span class="p">(),</span> <span class="n">t</span><span class="p">)</span>
+  <span class="n">energy</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">predicted_at</span><span class="p">(</span><span class="n">Time</span><span class="o">.</span><span class="n">from_s</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">as_s</span><span class="p">()</span> <span class="o">+</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">))</span> <span class="o">/</span> <span class="mi">3600</span> <span class="o">/</span> <span class="mi">1000</span>
+  <span class="k">print</span> <span class="s">&#39;It this keeps going on for a day, that is </span><span class="si">%.1f</span><span class="s"> kWh.&#39;</span> <span class="o">%</span> <span class="n">energy</span>
+  <span class="k">print</span>
+
+  <span class="c"># Two (time [s], energy [Ws]) tuples</span>
+  <span class="n">datapoint1</span> <span class="o">=</span> <span class="p">(</span><span class="n">Time</span><span class="o">.</span><span class="n">from_s</span><span class="p">(</span><span class="mi">1370369092</span><span class="p">),</span> <span class="mf">16.3</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+  <span class="n">datapoint2</span> <span class="o">=</span> <span class="p">(</span><span class="n">Time</span><span class="o">.</span><span class="n">from_s</span><span class="p">(</span><span class="mi">1370382710</span><span class="p">),</span> <span class="mf">22.1</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+  <span class="n">val</span> <span class="o">=</span> <span class="n">EnergyValue</span><span class="o">.</span><span class="n">from_energy</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">datapoint2</span> <span class="o">+</span> <span class="n">datapoint1</span><span class="p">))</span>
+  <span class="k">print</span> <span class="s">&#39;</span><span class="si">%(P).1f</span><span class="s"> W * </span><span class="si">%(t).1f</span><span class="s"> h = </span><span class="si">%(E).1f</span><span class="s"> Wh&#39;</span> <span class="o">%</span> <span class="p">{</span>
+
+    <span class="s">&#39;P&#39;</span><span class="p">:</span> <span class="n">val</span><span class="o">.</span><span class="n">as_W</span><span class="p">(),</span>
+    <span class="s">&#39;t&#39;</span><span class="p">:</span> <span class="n">val</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="mi">3600</span><span class="p">,</span>
+    <span class="s">&#39;E&#39;</span><span class="p">:</span> <span class="n">val</span><span class="o">.</span><span class="n">as_Wh</span><span class="p">()</span>
+  <span class="p">}</span>
+  <span class="n">kWh</span> <span class="o">=</span> <span class="mf">10.</span>
+  <span class="n">until</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">predicted_time_until</span><span class="p">(</span><span class="n">kWh</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+  <span class="k">print</span> <span class="s">&#39;With this pace, you will reach 10 kWh after </span><span class="si">%.1f</span><span class="s"> h.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">until</span> <span class="o">/</span> <span class="mi">3600</span><span class="p">)</span>
+
+  <span class="n">sleep</span> <span class="o">=</span> <span class="mi">2</span>
+  <span class="n">first</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">current_as_Wh</span><span class="p">()</span>
+  <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep</span><span class="p">)</span>
+  <span class="n">second</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">current_as_Wh</span><span class="p">()</span>
+  <span class="n">difference</span> <span class="o">=</span> <span class="p">(</span><span class="n">second</span> <span class="o">-</span> <span class="n">first</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3600</span>
+  <span class="k">print</span> <span class="s">&#39;During the last </span><span class="si">%d</span><span class="s"> seconds, </span><span class="si">%.1f</span><span class="s"> Wh was added.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sleep</span><span class="p">,</span> <span class="n">difference</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">EnergyKit 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Sander Dijkhuis, Interactive Institute.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
