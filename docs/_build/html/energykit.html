@@ -70,12 +70,36 @@ in your code to access <a class="reference internal" href="#energykit.datasource
 <dl class="method">
 <dt id="energykit.datasource.DataSource.get_stream_by_key">
 <tt class="descname">get_stream_by_key</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="_modules/energykit/datasource.html#DataSource.get_stream_by_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datasource.DataSource.get_stream_by_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> &#8211; A key as specified by the implementation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The only instance with key <tt class="xref py py-attr docutils literal"><span class="pre">key</span></tt>, possibly just generated.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">an instance of a <a class="reference internal" href="#energykit.datastream.DataStream" title="energykit.datastream.DataStream"><tt class="xref py py-class docutils literal"><span class="pre">energykit.datastream.DataStream</span></tt></a> subclass</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="energykit.datasource.DataSource.get_stream_keys">
 <tt class="descname">get_stream_keys</tt><big>(</big><em>allow_cached=True</em><big>)</big><a class="reference internal" href="_modules/energykit/datasource.html#DataSource.get_stream_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#energykit.datasource.DataSource.get_stream_keys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>allow_cached</strong> (<em>bool</em>) &#8211; Set to False if a fresh index is required.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Keys that can be used with <a class="reference internal" href="#energykit.datasource.DataSource.get_stream_by_key" title="energykit.datasource.DataSource.get_stream_by_key"><tt class="xref py py-meth docutils literal"><span class="pre">get_stream_by_key()</span></tt></a>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list or generator</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="energykit.datasource.DataSource.load_driver_data">
