@@ -15,6 +15,12 @@ Installation
 2. Set the database details in `config_priv.py`. See `config_priv.example.py`.
 
 
+Documentation
+-------------
+
+Start at `docs/_build/html/index.html`.
+
+
 Running the drivers
 -------------------
 
