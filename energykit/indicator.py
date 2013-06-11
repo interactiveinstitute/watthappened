@@ -33,8 +33,13 @@ class PowerExtremaIndicator(Indicator):
     self._timeout = None
 
   def datapoints(self):
-    for extremum in self.interval.extrema():
-      yield extremum
+    extrema = self.interval.extrema()
+    if extrema:
+      for extremum in self.interval.extrema():
+        yield extremum
+    else:
+      return
+      yield
 
   def subscribe(self, listener, topic=None):
     if self.interval.end_time < Time.now():

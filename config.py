@@ -11,6 +11,11 @@ def DRIVERS():
   import drivers
   from energykit import couchm, fake
 
+  source = couchm.DataSource(**COUCHDB['sp'])
+  allrooms = source.get_stream_by_key(('allRooms', 'ElectricPower'))
+  yield drivers.WeeklyExtrema(allrooms)
+
+  '''
   source = couchm.DataSource(**COUCHDB['testbuilding'])
 
   fake_stream = fake.DataSource().get_stream_by_key(FAKE_STREAMS[0])
@@ -18,3 +23,4 @@ def DRIVERS():
 
   yield drivers.Pipe(fake_stream, couchm_test)
   yield drivers.WeeklyExtrema(couchm_test)
+  '''

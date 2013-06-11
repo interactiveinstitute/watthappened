@@ -5,12 +5,12 @@ class WeeklyExtrema(Driver):
 
   def __init__(self, power_stream):
     super(WeeklyExtrema, self).__init__()
-
     self.power = power_stream
 
   def run(self):
     self.data = self.load_or_create_data(self.power.source)
     self.data.output = {}
+    self.log('(re)calculating past extrema, this may take a while...')
     for week in Time.weeks_around(self.power.domain()[0], Time.now()):
       self._set_indicator(week)
     self.data.save()
@@ -21,8 +21,12 @@ class WeeklyExtrema(Driver):
     self.indicator = PowerExtremaIndicator(self.power, *week)
 
     key = week[0].as_week()
-    min, max = self.indicator.datapoints()
-    for name in ('min', 'max'): self._set(key, name, locals()[name])
+    try:
+      min, max = self.indicator.datapoints()
+      for name in ('min', 'max'): self._set(key, name, locals()[name])
+    except ValueError:
+      # The indicator had no datapoints.
+      pass
 
     # Store latest week with data: this week's data might be updated.
     self.data.cache['week_key'] = key
