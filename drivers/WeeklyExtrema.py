@@ -13,6 +13,7 @@ class WeeklyExtrema(Driver):
     self.log('(re)calculating past extrema, this may take a while...')
     for week in Time.weeks_around(self.power.domain()[0], Time.now()):
       self._set_indicator(week)
+    self._set_card()
     self.data.save()
     self.log('(re)calculated past extrema')
     self._update_handlers(self.indicator.subscribe)
@@ -20,6 +21,7 @@ class WeeklyExtrema(Driver):
   def _set_indicator(self, week):
     self.indicator = PowerExtremaIndicator(self.power, *week)
 
+    min = max = None
     key = week[0].as_week()
     try:
       min, max = self.indicator.datapoints()
@@ -35,14 +37,35 @@ class WeeklyExtrema(Driver):
   def _set(self, week_key, name, dp):
     week_id = week_key + '/' + name
     value = str('dFdt' in dir(dp.value) and dp.value.dFdt or dp.value)
+    if name == 'min': note = 'lowest in week %d'
+    else: note = 'highest in week %d'
     self.data.output[week_id] = {
       'feed': self.power.event_feed_name(),
       'sp_bubble': {
         'timestamp': dp.time.as_ms(),
-        'tags': ['%simum' % name],
+        'tags': ['week', '%simum' % name],
         'value': value,
         'value_type': 'W',
-        'priority': self.priority
+        'priority': self.priority,
+        'note': note % int(week_key[4:6])
+      }
+    }
+
+  def _set_card(self):
+    min, max = self.indicator.datapoints()
+    min_value = str('dFdt' in dir(min.value) and min.value.dFdt or min.value)
+    max_value = str('dFdt' in dir(max.value) and max.value.dFdt or max.value) 
+    self.data.output['card'] = {
+      'feed': self.power.event_feed_name(),
+      'sp_card': {
+        'timestamp': Time.now().as_ms(),
+        'tags': ['week', 'extrema'],
+        'priority': self.priority,
+        'class': 'weeklyExtrema',
+        'height': 512,
+        'content': '''
+<p>weekly extrema: %s and %s</p>
+''' % (min_value, max_value)
       }
     }
 
