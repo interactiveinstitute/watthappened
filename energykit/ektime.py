@@ -5,6 +5,8 @@ import time
 
 class Time(pd.Timestamp):
   MONDAY = 0
+  WEEKDAYS = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+      'Saturday', 'Sunday')
 
   @classmethod
   def from_json(cls, time_str):

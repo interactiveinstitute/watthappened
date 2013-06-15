@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*- 
+
 from energykit import Driver, PowerExtremaIndicator, Time
 
 class WeeklyExtrema(Driver):
@@ -53,8 +55,11 @@ class WeeklyExtrema(Driver):
 
   def _set_card(self):
     min, max = self.indicator.datapoints()
-    min_value = str('dFdt' in dir(min.value) and min.value.dFdt or min.value)
-    max_value = str('dFdt' in dir(max.value) and max.value.dFdt or max.value) 
+    formatted = {}
+    for id in ('min', 'max'):
+      dp = locals()[id]
+      formatted[(id, 'time')] = '%s at %s' % (Time.WEEKDAYS[dp.time.weekday()], dp.time.strftime('%H:%M'))
+      formatted[(id, 'value')] = str('dFdt' in dir(dp.value) and dp.value.dFdt or dp.value)
     self.data.output['card'] = {
       'feed': self.power.event_feed_name(),
       'sp_card': {
@@ -64,8 +69,11 @@ class WeeklyExtrema(Driver):
         'class': 'weeklyExtrema',
         'height': 512,
         'content': '''
-<p>weekly extrema: %s and %s</p>
-''' % (min_value, max_value)
+<h1>This week’s extrema</h1>
+<p class="max"><span class="power value">%s W</span> <span class="time">%s</span></p>
+<p class="min"><span class="power value">%s W</span> <span class="time">%s</span></p>
+''' % (formatted[('max', 'value')], formatted[('max', 'time')],
+       formatted[('min', 'value')], formatted[('min', 'time')])
       }
     }
 
