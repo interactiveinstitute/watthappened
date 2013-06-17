@@ -17,6 +17,12 @@ class DataInterval(energykit.DataInterval):
     end_point = self.stream.value_at(self.end_time)
     return end_point.value - start_point.value
 
+  def enhanced_value_difference(self):
+    'Returns Wh.'
+    start_value = self.stream.enhanced_value_at(self.start_time)
+    end_value = self.stream.enhanced_value_at(self.end_time)
+    return end_value - start_value
+
   def extrema(self):
     start_key = [self.stream._feed_name, self.stream._name]
     if self.start_time: start_key.append(self.start_time.as_ms())

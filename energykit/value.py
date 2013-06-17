@@ -88,6 +88,7 @@ class EnergyValue(PiecewiseLinearValue):
 
   def current_as_Wh(self):
     return self.current()
+    # TODO(sander) / 3600?
 
   def __repr__(self):
     return '%.1f Ws over %.1f s' % (self.dF, self.dt)

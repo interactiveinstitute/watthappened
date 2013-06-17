@@ -8,15 +8,17 @@ class DataStream(energykit.DataStream):
 
     self._feed_name = key[0]
     self._name = key[1]
+    self._enhancements = []
 
     source.subscribe(self.publish, self)
 
   def _key(self, time):
-    return db.show('energy_data/unix_to_couchm_ts', '',
+    return self.source.db.show('energy_data/unix_to_couchm_ts', '',
                    feed=self._feed_name, timestamp=time.as_ms())
 
   def _to_point(self, value):
     time = energykit.Time.from_json(value[self.source._at_idx])
+    print 'vvv', value, self.source._datastream_idx, self._name
     value = value[self.source._datastream_idx[self._name]]
     return energykit.DataPoint(time, value)
 
@@ -25,6 +27,29 @@ class DataStream(energykit.DataStream):
       return energykit.EnergyValue.from_power(value, t)
     else:
       return energykit.Value(value, t)
+
+  def enhance(self, feed, value_type=None):
+    if value_type is not None: feed.type = value_type
+    self._enhancements.append(feed)
+
+  def enhanced_value_at(self, time):
+    if self.type is energykit.ValueType.ENERGY:
+      for enhancement in self._enhancements:
+        if enhancement.type is energykit.ValueType.POWER:
+          result = self.source.db.view('energy_data/by_source_and_time',
+              startkey=[self._feed_name], endkey=self._key(time))
+          value = result.first()['value']
+
+          measured = energykit.Time.from_json(value[self.source._at_idx])
+          energy = value[self.source._datastream_idx[self._name]]
+          power = value[self.source._datastream_idx[enhancement._name]]
+
+          dt = (time - measured).total_seconds()
+          e = energykit.EnergyValue(power * dt, dt, time, energy * 3600 * 1000)
+          Wh = e.predicted_at(time) / 3600
+          return Wh
+    # TODO(sander) we shouldn't get here
+    return None
 
   def value_at(self, time):
     result = self.source.db.view('energy_data/by_source_and_time',

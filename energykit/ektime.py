@@ -37,6 +37,20 @@ class Time(pd.Timestamp):
   def as_week(self):
     return '%03d%02d' % (self.year, self.week)
 
+  def next_at(self, time_str):
+    hours, minutes = time_str.split(':')
+    candidate = Time(datetime.datetime(self.year, self.month, self.day,
+      int(hours), int(minutes)))
+    if candidate > self:
+      return candidate
+    else:
+      # TODO(sander) how will this work with DST?
+      return Time(candidate + datetime.timedelta(days=1))
+
+  def range(self, *args, **kwargs):
+    return pd.date_range(start=self, *args, **kwargs)
+
+  # TODO(sander) could also be an instance method, t.previous_weekday(wd)
   @classmethod
   def previous_weekday(cls, time, weekday):
     days = time.weekday() - weekday

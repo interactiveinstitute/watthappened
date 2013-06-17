@@ -13,6 +13,18 @@ class Indicator(PubSub):
     '''
     raise NotImplementedError
 
+class EnergyIndicator(Indicator):
+  def __init__(self, energy_stream, start_time, end_time):
+    super(EnergyIndicator, self).__init__()
+
+    self.energy = energy_stream
+    self.energy.type = ValueType.ENERGY
+
+    self.interval = self.energy.interval(start_time, end_time)
+
+  def value(self):
+    return self.interval.enhanced_value_difference()
+
 class PowerExtremaIndicator(Indicator):
   '''
   :param energykit.datastream.DataStream power_stream:

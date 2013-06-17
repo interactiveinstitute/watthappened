@@ -9,12 +9,22 @@ FAKE_STREAMS = range(8000, 8005)
 
 def DRIVERS():
   import drivers
-  from energykit import couchm, fake
+  from energykit import couchm, fake, ValueType
 
   source = couchm.DataSource(**COUCHDB['sp'])
-  allrooms = source.get_stream_by_key(('allRooms', 'ElectricPower'))
-  yield drivers.WeeklyExtrema(allrooms)
+  p_all = source.get_stream_by_key(('allRooms', 'ElectricPower'))
+  #yield drivers.WeeklyExtrema(p_all)
 
+  e_all = source.get_stream_by_key(('allRooms', 'ElectricEnergy'))
+  e_all.enhance(p_all, ValueType.POWER)
+  holidays = ('20130101', '20130106', '20130329', '2013401', '20130501',
+      '20130509', '20130526', '20130606',
+      '20130621', '20131101', '20131110', '20131223', '20131224',
+      '20131225', '20131226', '20131231')
+  lunch = ('11:30', '12:30')
+  timezone = 'Europe/Stockholm'
+  yield drivers.PeriodicEnergy('lunch', e_all, holidays, lunch, timezone)
+  
   '''
   source = couchm.DataSource(**COUCHDB['testbuilding'])
 
