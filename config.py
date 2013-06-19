@@ -13,7 +13,7 @@ def DRIVERS():
 
   source = couchm.DataSource(**COUCHDB['sp'])
   p_all = source.get_stream_by_key(('allRooms', 'ElectricPower'))
-  #yield drivers.WeeklyExtrema(p_all)
+  yield drivers.WeeklyExtrema(p_all)
 
   e_all = source.get_stream_by_key(('allRooms', 'ElectricEnergy'))
   e_all.enhance(p_all, ValueType.POWER)

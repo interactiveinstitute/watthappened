@@ -56,4 +56,3 @@ class PeriodicEnergy(Driver):
         'note': self.name
       }
     }
-    print key, self.data.output[key]
