@@ -24,6 +24,9 @@ def DRIVERS():
   lunch = ('11:30', '12:30')
   timezone = 'Europe/Stockholm'
   yield drivers.PeriodicEnergy('lunch', e_all, holidays, lunch, timezone)
+
+  yield drivers.StaticImage(p_all, 'data/fake_competition.png')
+  yield drivers.StaticImage(p_all, 'data/about.png')
   
   '''
   source = couchm.DataSource(**COUCHDB['testbuilding'])
