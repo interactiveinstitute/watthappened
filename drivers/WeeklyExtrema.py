@@ -56,6 +56,21 @@ class WeeklyExtrema(Driver):
   def _set_card(self):
     points = [point for point in self.indicator.datapoints()]
     if len(points) != 2:
+      self.data.output['card'] = {
+        'feed': self.power.event_feed_name(),
+        'sp_card': {
+          'timestamp': Time.now().as_ms(),
+          'tags': ['week', 'extrema'],
+          'priority': self.priority,
+          'class': 'weeklyExtrema',
+          'height': 512,
+          'content': '''
+  <h1>This week’s extrema</h1>
+  <p class="max"><span class="power value">?</span></p>
+  <p class="min"><span class="power value">?</span></p>
+  '''
+        }
+      }
       return
     min, max = points
     formatted = {}
@@ -73,9 +88,11 @@ class WeeklyExtrema(Driver):
         'height': 512,
         'content': '''
 <h1>This week’s extrema</h1>
+<p class="week">w%s</p>
 <p class="max"><span class="power value">%s W</span> <span class="time">%s</span></p>
 <p class="min"><span class="power value">%s W</span> <span class="time">%s</span></p>
-''' % (formatted[('max', 'value')], formatted[('max', 'time')],
+''' % (self.data.cache['week_key'][4:6],
+       formatted[('max', 'value')], formatted[('max', 'time')],
        formatted[('min', 'value')], formatted[('min', 'time')])
       }
     }

@@ -5,7 +5,7 @@ import datetime
 from energykit import Driver, IOLoop, Time
 
 class IndividualContest(Driver):
-  priority = 0
+  priority = 10
 
   def __init__(self, name, title, shared, streams, unit, interval, indicator):
     super(IndividualContest, self).__init__()
@@ -29,7 +29,7 @@ class IndividualContest(Driver):
           'tags': ['competition'],
           'timestamp': Time.now().as_ms(),
           'height': 512,
-          'priority': 0,
+          'priority': self.priority,
           'class': 'competition'
         }
       }
@@ -37,7 +37,7 @@ class IndividualContest(Driver):
 
     self.log('initializing')
 
-    html = '<ul class="top3">'
+    html = '<h1>Competition leaders</h1><ul class="top3">'
 
     start_time = Time.previous_weekday(Time.now(), 0)
     end_time = Time.now()
@@ -52,7 +52,7 @@ class IndividualContest(Driver):
       html += '<li><div class="name">%s</div>' % name
       html += '<div class="value energy">%s</div></li>' % value
 
-    html += '</ul><h1>%s</h1>' % self.title
+    html += '</ul><h2>%s</h2>' % self.title
     self.data.output['card']['sp_card']['content'] = html
 
     self.log('initialized')

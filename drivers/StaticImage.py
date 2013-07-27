@@ -8,10 +8,11 @@ from energykit import Driver, Time
 class StaticImage(Driver):
   priority = 0
 
-  def __init__(self, stream, file_name):
+  def __init__(self, stream, file_name, title):
     super(StaticImage, self).__init__()
     self.stream = stream
     self.file_name = file_name 
+    self.title = title
 
   def run(self):
     self.data = self.load_or_create_data(self.stream.source, self.file_name)
@@ -30,7 +31,7 @@ class StaticImage(Driver):
           'priority': self.priority,
           'class': 'staticImage',
           'height': 512,
-          'content': 'data:image/png;base64,' + encoded_string
+          'content': '<h1>%s</h1><p><img src="data:image/png;base64,%s">' % (self.title, encoded_string)
         }
       }
     }

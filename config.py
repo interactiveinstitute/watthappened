@@ -47,10 +47,10 @@ def DRIVERS():
     for feed_name, name in feed_names.iteritems()
   ])
   yield drivers.IndividualContest('contest',
-    'Lowest total absence energy this week',
+    'Lowest absence energy this week',
     p_all, feeds, 'Wh', 'week', EnergyIndicator)
 
-  yield drivers.StaticImage(p_all, 'data/about.png')
+  yield drivers.StaticImage(p_all, 'data/about.png', 'About this screen')
  
   '''
   source = couchm.DataSource(**COUCHDB['testbuilding'])
