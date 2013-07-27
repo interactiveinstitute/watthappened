@@ -54,7 +54,10 @@ class WeeklyExtrema(Driver):
     }
 
   def _set_card(self):
-    min, max = self.indicator.datapoints()
+    points = [point for point in self.indicator.datapoints()]
+    if len(points) != 2:
+      return
+    min, max = points
     formatted = {}
     for id in ('min', 'max'):
       dp = locals()[id]

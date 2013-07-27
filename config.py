@@ -9,7 +9,7 @@ FAKE_STREAMS = range(8000, 8005)
 
 def DRIVERS():
   import drivers
-  from energykit import couchm, fake, ValueType
+  from energykit import couchm, fake, EnergyIndicator, ValueType
 
   source = couchm.DataSource(**COUCHDB['sp'])
   p_all = source.get_stream_by_key(('allRooms', 'ElectricPower'))
@@ -25,9 +25,33 @@ def DRIVERS():
   timezone = 'Europe/Stockholm'
   yield drivers.PeriodicEnergy('lunch', e_all, holidays, lunch, timezone)
 
-  yield drivers.StaticImage(p_all, 'data/fake_competition.png')
+  feed_names = {
+    'room261': 'Lisa Ossman',
+    'room241': 'Helena Nakos',
+    'room242': 'Caroline Markusson',
+    'room243': 'Anders Hjörnhede',
+    'room244': 'Sven Hermansson',
+    'room245': 'Roger Nordman',
+    'room252': 'Pia Tiljander',
+    'room253': 'Svein Ruud',
+    'room254': 'Lennart Gustavsson',
+    'room255': 'Carolina Hiller',
+    'room256': 'Fredrik Niklasson',
+    'room257': 'Johan Larsson',
+    'room258': 'Peter Wahlgren',
+    'room259': 'Sara Jensen',
+    'room260': 'Ulla Lindberg',
+  }
+  feeds = dict([
+    (source.get_stream_by_key((feed_name, 'ElectricEnergyUnoccupied')), name)
+    for feed_name, name in feed_names.iteritems()
+  ])
+  yield drivers.IndividualContest('contest',
+    'Lowest total absence energy this week',
+    p_all, feeds, 'Wh', 'week', EnergyIndicator)
+
   yield drivers.StaticImage(p_all, 'data/about.png')
-  
+ 
   '''
   source = couchm.DataSource(**COUCHDB['testbuilding'])
 

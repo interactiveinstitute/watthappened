@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from energykit import Driver, EnergyIndicator, Time
+import datetime
+
+from energykit import Driver, EnergyIndicator, IOLoop, Time
 
 class PeriodicEnergy(Driver):
   priority = 0
@@ -17,9 +19,6 @@ class PeriodicEnergy(Driver):
     assert type(times is tuple) and len(times) is 2
 
     # TODO store buffer of last 3 lunches, and update card
-
-  def log(self, *message):
-    print '%s (%s):' % (self.__class__.__name__, self.name), ' '.join(message)
 
   def run(self):
     self.data = self.load_or_create_data(self.energy.source, self.name)
@@ -39,7 +38,7 @@ class PeriodicEnergy(Driver):
 
     self.data.save()
 
-    # TODO set timeout until next afterlunch, then run on last lunch, etc
+    IOLoop.current().add_timeout(datetime.timedelta(hours=1), self.run)
 
   def _store_energy(self, period):
     indicator = EnergyIndicator(self.energy, *period)

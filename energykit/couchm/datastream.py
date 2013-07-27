@@ -18,7 +18,6 @@ class DataStream(energykit.DataStream):
 
   def _to_point(self, value):
     time = energykit.Time.from_json(value[self.source._at_idx])
-    print 'vvv', value, self.source._datastream_idx, self._name
     value = value[self.source._datastream_idx[self._name]]
     return energykit.DataPoint(time, value)
 

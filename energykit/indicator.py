@@ -59,9 +59,14 @@ class PowerExtremaIndicator(Indicator):
 
     super(PowerExtremaIndicator, self).subscribe(listener, topic)
 
-    min, max = self.datapoints()
-    self.current_min = float(min.value.dFdt)
-    self.current_max = float(max.value.dFdt)
+    points = [point for point in self.datapoints()]
+    if len(points) == 2:
+      min, max = points
+      self.current_min = float(min.value.dFdt)
+      self.current_max = float(max.value.dFdt)
+    else:
+      self.current_min = float('inf')
+      self.current_max = float('-inf')
 
     self.interval.stream.subscribe(self._on_update)
 
